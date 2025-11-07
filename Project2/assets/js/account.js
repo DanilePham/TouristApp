@@ -1,0 +1,110 @@
+//Login Form
+const loginForm=document.querySelector('#loginForm');
+if(loginForm){
+    const validator= new JustValidate('#loginForm');
+    validator
+    .addField('#email',[
+        {
+            rule:'required',
+            errorMessage:'Email is required'
+        }
+        ,
+        {
+            rule:'email',
+            errorMessage:'Email is not valid'
+        }
+        ,{
+            rule:'maxLength',
+            value:50,
+            errorMessage:'Email must be less than 50 characters'
+        }
+    ])
+    .addField('#password',[
+        {
+            rule:'required',
+            errorMessage:'Password is required'
+        }
+    ])
+    .onSuccess((event)=>{
+         const email=event.target.email.value;
+         const Password=event.target.password.value;
+         const rememberPass=event.target.rememberPassword.checked;
+            console.log('Login Form Submitted', {email, Password, rememberPass});
+            // You can add your form submission logic here
+    });
+
+}
+//End login form
+
+
+
+//register Form
+const registerForm=document.querySelector('#registerForm');
+if(registerForm){
+    const validator= new JustValidate('#registerForm');
+    validator
+    .addField('#fullName',[
+        {
+            rule:'required',
+            errorMessage:'Full Name is required'
+        }
+        ,{
+            rule:'maxLength',
+            value:50,
+            errorMessage:'Full Name must be less than 50 characters'
+        }
+        , {
+            rule:'customRegexp',
+            value:/^[a-zA-Z\s]+$/,
+            errorMessage:'Full Name can only contain letters and spaces'
+        }
+    ])
+    .addField('#email',[
+        {
+            rule:'required',
+            errorMessage:'Email is required'
+        }
+        ,{
+            rule:'email',
+            errorMessage:'Email is not valid'
+        }
+        ,{
+            rule:'maxLength',
+            value:50,
+            errorMessage:'Email must be less than 50 characters'
+        }
+    ])
+    .addField('#password',[
+        {
+            rule:'required',
+            errorMessage:'Password is required'
+        }
+        ,
+        {
+            rule:'minLength',
+            value:6,
+            errorMessage:'Password must be at least 6 characters'
+        }
+        ,
+        {
+            rule:'customRegexp',
+            value:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/,
+            errorMessage:'Password must contain at least one letter and one number'
+        }
+    ])
+    .addField('#agree',[
+        {
+            rule:'required',
+            errorMessage:'You must agree to the terms and conditions'
+        }
+    ])
+    .onSuccess((event)=>{
+         const email=event.target.email.value;
+         const Password=event.target.password.value;
+         const fullname=event.target.fullName.value;
+            console.log('Login Form Submitted', {email, Password, fullname});
+            // You can add your form submission logic here
+    });
+
+}
+//End register form

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo tài khoản quản trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.tiny.cloud/1/3zrtghuw0nyto9iiw6cszkec23wqx67md48cz255x2hrl7qj/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header class="header"> 
+      <div class="inner-logo"> <a href="#"><span>28</span><span>Admin</span></a></div>
+      <div class="inner-wrap">    
+        <div class="inner-notify"> <img src="assets/images/icon.svg" alt="notify"><span>6</span></div>
+        <div class="inner-account"> 
+          <div class="inner-avatar"> <img src="assets/images/avatar.svg" alt="avatar"></div>
+          <div class="inner-content">
+            <div class="inner-name">Le Van A </div>
+            <div class="inner-role">Admin </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <nav class="sider">
+      <ul class="inner-menu"> 
+        <li> <a class="active" href="#"><i class="fa-solid fa-gauge-high"></i> Tong Quan</a></li>
+        <li>  <a href="#"><i class="fa-solid fa-table-cells-large"></i> Quan Ly Danh Muc</a></li>
+        <li> <a href="#"><i class="fa-solid fa-table-list"></i> Quan Ly Tour</a></li>
+        <li><a href="#"><i class="fa-solid fa-list-check"></i> Quan Ly Don Hang </a></li>
+        <li><a href="#"><i class="fa-solid fa-user"></i> Quan Ly Nguoi Dung</a></li>
+        <li><a href="#"><i class="fa-solid fa-user-group"></i> Quan Ly Nhan Vien</a></li>
+      </ul>
+      <hr>
+      <ul class="inner-menu"> 
+        <li> <a href="#"><i class="fa-solid fa-gear"></i> Cai Dat He Thong</a></li>
+        <li> <a href="#"><i class="fa-solid fa-user-gear"></i> Thong Tin Ca Nhan</a></li>
+        <li> <a class="inner-logout" href="#"><i class="fa-solid fa-power-off"></i> Dang Xuat    </a></li>
+      </ul>
+    </nav>
+    <main class="main">
+      <h1 class="box-title">Tạo tài khoản quản trị</h1>
+      <div class="section-8">
+        <form action="">
+          <div class="inner-group"> 
+            <label class="inner-label" for="fullName">Họ tên</label>
+            <input type="text" id="fullName" name="fullName">
+          </div>
+          <div class="inner-group"> 
+            <label class="inner-label" for="email">Email</label>
+            <input type="email" id="email" name="email">
+          </div>
+          <div class="inner-group"> 
+            <label class="inner-label" for="phone">Số điện thoại</label>
+            <input type="text" id="phone" name="phone">
+          </div>
+          <div class="inner-group"> 
+            <label class="inner-label" for="role">Nhóm quyền</label>
+            <select id="role" name="role">
+              <option value="">Quản trị viên</option>
+              <option value="">Quản lý đơn hàng</option>
+              <option value="">Quản lý tour</option>
+            </select>
+          </div>
+          <div class="inner-group"> 
+            <label class="inner-label" for="positionCompany">Chức vụ</label>
+            <input type="text" id="positionCompany" name="positionCompany">
+          </div>
+          <div class="inner-group"> 
+            <label class="inner-label" for="status">Trạng thái</label>
+            <select id="status" name="status">
+              <option value="">Hoạt động</option>
+              <option value="">Tạm dừng</option>
+            </select>
+          </div>
+          <div class="inner-group"> 
+            <label class="inner-label" for="password">Mật khẩu</label>
+            <input type="text" id="password" name="password">
+          </div>
+          <div class="inner-group inner-two-col">
+            <label class="inner-label" for="avatar">Ảnh đại diện</label>
+            <div class="inner-upload-image">
+              <input type="file" id="avatar" name="avatar" filepond-image>
+            </div>
+          </div>
+          <div class="inner-button inner-two-col">
+            <button>Tạo mới</button>
+          </div>
+        </form>
+        <div class="inner-back"> <a href="#">Quay lại danh sách</a></div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/js1.js"></script>
+  </body>
+</html>
