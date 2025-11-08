@@ -10,11 +10,11 @@ app.set(`views`, path.join(__dirname,`views`));
 app.set(`view engine`, `pug`);
 
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render('client/pages/home.pug', { pagetitle: "123" })
 })
 
 app.get('/tours', (req, res) => {
-  res.send('Main Tour Management1!')
+  res.render('client/pages/tour-list.pug')
 })
 
 app.get('/users', (req, res) => {
