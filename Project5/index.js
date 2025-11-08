@@ -3,6 +3,8 @@ const path= require('path');
 const app = express()
 const port = 3000
 
+
+console.log("ok backend")
 //Thiet Lap chua file pug
 //render ra file pug
 app.set(`views`, path.join(__dirname,`views`));
@@ -12,6 +14,8 @@ app.set(`view engine`, `pug`);
 app.get('/', (req, res) => {
   res.render('client/pages/home.pug', { pagetitle: "123" })
 })
+
+app.use(express.static(path.join(__dirname,`public`)));
 
 app.get('/tours', (req, res) => {
   res.render('client/pages/tour-list.pug')
