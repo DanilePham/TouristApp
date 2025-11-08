@@ -90,20 +90,25 @@ if (addmoreschedulebtn) {
 // -------------------------------------------------------------------//
 
 //Filepond
-const listFilepondImage = document.querySelectorAll("[filepond-image]");
 
+const listFilepondImage = document.querySelectorAll("[filepond-image]");
+let filePond = {};
 if (listFilepondImage.length > 0) {
     FilePond.registerPlugin(FilePondPluginImagePreview);
     FilePond.registerPlugin(FilePondPluginFileValidateType);
 
     listFilepondImage.forEach(filepondImage => {
-        FilePond.create(filepondImage, {
+        console.log(filepondImage.name);
+        filePond[filepondImage.name] = FilePond.create(filepondImage, {
             labelIdle: "+",
             acceptedFileTypes: ['image/*'],
         });
     });
 }
 //End Filepond
+
+// -------------------------------------------------------------------//
+
 
 //Create chart for dashboard
 const chartDashboard = document.querySelector('#revenueChart');
@@ -130,10 +135,40 @@ if (chartDashboard) {
         options: {
             scales: {
                 y: {
-                    beginAtZero: true 
+                    beginAtZero: true
                 }
             },
             maintainAspectRatio: false,
         }
     });
 }
+
+// -------------------------------------------------------------------//
+
+
+//Category form validate
+const categoryCreateFrom = document.querySelector("#category-create-form");
+console.log(categoryCreateFrom);
+if (categoryCreateFrom) {
+    const validator = new JustValidate('#category-create-form');
+    validator
+        .addField("#nameDM", [
+            {
+                rule: 'required',
+                errorMessage: 'Vui lòng nhập tên danh mục',
+            }
+        ])
+        .onSuccess((event) => {
+            const name = event.target.nameDM.value;
+            const parent = event.target.parent.value;
+            const position = event.target.position.value;
+            const status = event.target.status.value;
+            const avatar = filePond.avatar.getFile()?.file;
+            const des = tinymce.get("description").getContent();
+            console.log(filePond);
+            console.log(filePond.avatar.getFile().file);
+
+
+        });
+}
+//end category form validate

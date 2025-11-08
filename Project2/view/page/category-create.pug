@@ -7,24 +7,24 @@ block main
   h1.box-title Tạo danh mục
 
   .section-8
-    form(action="")
+    form(id="category-create-form")
       .inner-group 
-        label.inner-label(for="name") Tên danh mục
-        input(type="text" id="name" name="name" textarea-mce)
+        label.inner-label(for="nameDM") Tên danh mục *
+        input(type="text" id="nameDM" name="nameDM")
       .inner-group 
         label.inner-label(for="parent") Danh mục cha
         select(id="parent" name="parent")
           option(value="") -- Chọn danh mục --
-          option(value="") Danh mục 1
-          option(value="") Danh mục 2
+          option(value="id-danhmuc-1") Danh mục 1
+          option(value="id-danhmuc-2") Danh mục 2
       .inner-group 
         label.inner-label(for="position") Vị trí
-        input(type="number" id="position" name="position" textarea-mce)
+        input(type="number" id="position" name="position")
       .inner-group 
         label.inner-label(for="status") Trạng thái
         select(id="status" name="status")
-          option(value="") Hoạt động
-          option(value="") Tạm dừng
+          option(value="active") Hoạt động
+          option(value="inactive") Tạm dừng
       .inner-group.inner-two-col
         label.inner-label(for="avatar") Ảnh đại diện
         div(class="inner-upload-image")
