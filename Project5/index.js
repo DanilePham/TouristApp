@@ -1,39 +1,22 @@
 const express = require('express');
 require('dotenv').config();
 const path = require('path');
-const mongoose = require('mongoose');
-//Kết nối đến MongoDB
-mongoose.connect(process.env.DATABASE);
 
-const { Tour } = require('./models/tour.model');
+const connectDatabase = require('./config/database.config');
+connectDatabase.connect();
+const app = express();
+const port = 3000;
 
-const app = express()
-const port = 3000
-
-
-
-console.log("ok backend")
-//Thiet Lap chua file pug
-//render ra file pug
 app.set(`views`, path.join(__dirname, `views`));
-
 app.set(`view engine`, `pug`);
 
-app.get('/', (req, res) => {
-  res.render('client/pages/home.pug', { pagetitle: "123" })
-})
+const clientRouter = require('./routers/client/index.router');
 
 app.use(express.static(path.join(__dirname, `public`)));
 
-app.get('/tours', async (req, res) => {
-  const tourList = await Tour.find({});
+app.use('/', clientRouter);
+app.use('/tours', clientRouter);
 
-  console.log(tourList);
-  res.render('client/pages/tour-list.pug', {
-    pagetitle: "Tour List",
-    tourList: tourList
-  })
-})
 
 app.get('/users', (req, res) => {
   res.send('Main User Management1!')
