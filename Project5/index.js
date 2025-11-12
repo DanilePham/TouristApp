@@ -4,13 +4,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 //Kết nối đến MongoDB
 mongoose.connect(process.env.DATABASE);
-const Tour = mongoose.model('Tour', {
-  name: String,
-  time: String,
-  vehicle: String
-},
-  "tours"
-);
+
+const { Tour } = require('./models/tour.model');
+
 const app = express()
 const port = 3000
 
