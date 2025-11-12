@@ -2,6 +2,7 @@ extends ../layouts/default.pug
 
 block main
      h2 xin chao #{pagetitle}
-    
-
-        
+     
+     ul 
+        each tour in tourList
+            li #{tour.name} - #{tour.vehicle} - #{tour.time}

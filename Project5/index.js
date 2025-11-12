@@ -1,13 +1,25 @@
-const express = require('express')
-const path= require('path');
+const express = require('express');
+require('dotenv').config();
+const path = require('path');
+const mongoose = require('mongoose');
+//Kết nối đến MongoDB
+mongoose.connect(process.env.DATABASE);
+const Tour = mongoose.model('Tour', {
+  name: String,
+  time: String,
+  vehicle: String
+},
+  "tours"
+);
 const app = express()
 const port = 3000
+
 
 
 console.log("ok backend")
 //Thiet Lap chua file pug
 //render ra file pug
-app.set(`views`, path.join(__dirname,`views`));
+app.set(`views`, path.join(__dirname, `views`));
 
 app.set(`view engine`, `pug`);
 
@@ -15,10 +27,16 @@ app.get('/', (req, res) => {
   res.render('client/pages/home.pug', { pagetitle: "123" })
 })
 
-app.use(express.static(path.join(__dirname,`public`)));
+app.use(express.static(path.join(__dirname, `public`)));
 
-app.get('/tours', (req, res) => {
-  res.render('client/pages/tour-list.pug')
+app.get('/tours', async (req, res) => {
+  const tourList = await Tour.find({});
+
+  console.log(tourList);
+  res.render('client/pages/tour-list.pug', {
+    pagetitle: "Tour List",
+    tourList: tourList
+  })
 })
 
 app.get('/users', (req, res) => {
