@@ -293,7 +293,7 @@ a {
 
 .section-1 {
     padding: 106px 0 108px 0;
-    background-image: url("images/bg1.png");
+    background-image: url("/client/asset/images/bg1.png");
     background-size: cover;
     background-position: cover;
 }

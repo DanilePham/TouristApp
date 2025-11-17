@@ -1,4 +1,356 @@
 extends ../layouts/default.pug
+include ../mixins/product-item.pug
 
 block main
-     h1 #{pagetitle}
+  .section-1
+    .container
+      .inner-wrap
+        h1.inner-title(
+          data-aos-duration="800" 
+          data-aos="fade-up"
+        )
+          | Du lịch Châu Á - Khám phá Mỹ, Úc, Âu
+          br
+          | Đi nơi đâu bạn muốn
+        p.inner-des(
+          data-aos-delay="200" 
+          data-aos-duration="800" 
+          data-aos="fade-up"
+        )
+          | Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus delectus iure possimus dolores.
+          |   Inventore animi esse omnis deleniti suscipit praesentium itaque aliquam, enim asperiores, aspernatur
+          |   sapiente, ab tempore adipisci eaque.
+        form.inner-form(
+          data-aos-duration="800" 
+          data-aos="fade-up"
+        )
+          .inner-box.inner-address
+            .inner-input-gr
+              img.inner-icon(
+                alt="" 
+                src="/client/asset/images/Group.png"
+              )
+              input.inner-input(
+                placeholder="Ban Muon Di Dau?" 
+                type="text"
+              )
+              i.fa-solid.fa-sort-down.inner-down
+            .inner-suggest
+              .inner-suggest-title
+                i.fa-solid.fa-location-dot
+                | Dia Diem Hot
+              .inner-suggest-list
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title Japan
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title America
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title Australia
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title France
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title Singapore
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title India
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title Indonesia
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title Thailand
+                    .inner-item-desc 50 tours
+                .inner-item
+                  .inner-item-image
+                    img(
+                      alt="" 
+                      src="/client/asset/images/Rectangle 1103.png"
+                    )
+                  .inner-item-content
+                    .inner-item-title Japan
+                    .inner-item-desc 50 tours
+          .inner-box.inner-user
+            .inner-input-gr
+              img.inner-icon(
+                alt="" 
+                src="/client/asset/images/Group (1).png"
+              )
+              input.inner-input(
+                placeholder="So Luong" 
+                type="text"
+              )
+              i.fa-solid.fa-sort-down.inner-down
+            .inner-quantity
+              .inner-item
+                .inner-label Nguoi Lon
+                .inner-count
+                  span.inner-decrease -
+                  span.inner-number 1
+                  span.inner-increase +
+              .inner-item
+                .inner-label Tre Em
+                .inner-count
+                  span.inner-decrease -
+                  span.inner-number 1
+                  span.inner-increase +
+              .inner-item
+                .inner-label Em be
+                .inner-count
+                  span.inner-decrease -
+                  span.inner-number 1
+                  span.inner-increase +
+          .inner-box.inner-calendar
+            .inner-input-gr
+              img.inner-icon(
+                alt="" 
+                src="/client/asset/images/Group (2).png"
+              )
+              input.inner-input(
+                placeholder="Lich Khoi Hanh" 
+                type="text"
+              )
+              i.fa-solid.fa-sort-down.inner-down
+          button.inner-button
+            i.fa-solid.fa-magnifying-glass
+            | Tim Kiem
+
+  .section-2
+    .container
+      .inner-wrap
+        .inner-info
+          h2.inner-title
+            | UU DAI 2024
+            br
+            | TOUR GIO CHOT
+          p.inner-des
+            | Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam, quisquam enim. Odio at
+            |   dignissimos assumenda nulla libero. Dolores suscipit odit et assumenda tenetur perferendis
+            |   maxime optio? Aut ducimus quaerat vitae.
+          .inner-clock-title Ket Thuc Sau
+          .inner-clock-number(clock-expired="2025-10-31T22:00:00")
+            .inner-item
+              .inner-number 00
+              .inner-label Days
+            .inner-item
+              .inner-number 00
+              .inner-label Hours
+            .inner-item
+              .inner-number 00
+              .inner-label Minutes
+            .inner-item
+              .inner-number 00
+              .inner-label Seconds
+          .inner-discount-title GIAM DEN
+          .inner-discount-price
+            | 990.000
+            span AUD
+        .inner-list
+          .swiper.swiperSection2
+            .swiper-wrapper
+              .swiper-slide
+                +product-item()
+              .swiper-slide
+                +product-item()
+              .swiper-slide
+                +product-item()
+              .swiper-slide
+            //
+              (HTML comment giữ nguyên như bạn có nếu cần)
+
+  .section-3
+    .container
+      h2.box-title Khuyến Mại Bùng Nổ - Đánh Tan Nóng Bức
+      .inner-wrap
+        .swiper.swiperSection3
+          .swiper-wrapper
+            .swiper-slide
+              .inner-img
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="/client/asset/images/Group 1610.png"
+                  )
+            .swiper-slide
+              .inner-img
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="/client/asset/images/image 127.png"
+                  )
+            .swiper-slide
+              .inner-img
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="/client/asset/images/image 128.png"
+                  )
+            .swiper-slide
+              .inner-img
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="/client/asset/images/image 128.png"
+                  )
+            .swiper-slide
+              .inner-img
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="/client/asset/images/image 128.png"
+                  )
+          .swiper-pagination
+
+  .section-4
+    .container
+      h2.box-title Tour Trong Nuoc
+      .inner-wrap
+        +product-item()
+      .inner-button
+        a.xemtatca-button(href="#") Xem Tat Ca
+
+  .section-5
+    .container
+      .inner-image
+        a(href="#")
+          img(
+            alt="" 
+            src="/client/asset/images/Banner.png"
+          )
+
+  // Section 6
+  .section-4
+    .container
+      h2.box-title Tour Nước Ngoài
+      .inner-wrap
+          +product-item()
+      .inner-button
+        a.xemtatca-button(href="#") Xem Tat Ca
+  // end Section-6
+
+  // Section -7
+  .section-5
+    .container
+      .inner-image
+        a(href="#")
+          img(
+            alt="" 
+            src="/client/asset/images/Banner (1).png"
+          )
+  // End Section-7
+
+  // Section-8
+  .section-8
+    .container
+      h2.box-title Tin Tức Mới
+      .inner-wrap
+        .blog-item-1
+          a(href="#")
+            .inner-image
+              img(
+                alt="" 
+                src="/client/asset/images/Tin nhỏ.png"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              h3.inner-title Homestay “cổ tích” giữa Đà Lạt mộng mơ
+        .blog-item-2
+          a(href="#")
+            .inner-image
+              img(
+                alt="" 
+                src="/client/asset/images/Rectangle 39.png"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              h3.inner-title Top 5 điểm check in độc đáo tại Singapore
+              .inner-des
+                | Nếu bạn nghĩ du lịch Singapore rất nhàm chán vì chỉ mãi quanh quẩn trong những khối bê
+                |   tông vô cảm thì bạn “chắc chưa?”. Tuy đảo quốc Sư Tử không phải là một quốc gia rộng lớn
+                |   nhưng các địa điểm du lịch tại Singapore chưa từng đánh mất sức hút đối với cộng đồng xê
+                |   dịch quốc tế.
+        .blog-item-1
+          a(href="#")
+            .inner-image
+              img(
+                alt="" 
+                src="/client/asset/images/Tin nhỏ (1).png"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              h3.inner-title(title="Đặc sản không thể bỏ qua khi đến với Đà Nẵng – Hội An")
+                | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem perferendis ad non
+                |   cupiditate incidunt laboriosam doloremque, fugit sed harum, alias, temporibus ratione
+                |   tempore. Labore accusamus quod, illo vero perferendis quos?
+        .blog-item-1
+          a(href="#")
+            .inner-image
+              img(
+                alt="" 
+                src="/client/asset/images/Tin nhỏ (2).png"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              h3.inner-title Homestay “cổ tích” giữa Đà Lạt mộng mơ
+        .blog-item-1
+          a(href="#")
+            .inner-image
+              img(
+                alt="" 
+                src="/client/asset/images/Tin nhỏ (3).png"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              h3.inner-title Homestay “cổ tích” giữa Đà Lạt mộng mơ
+  // End-Section-8
