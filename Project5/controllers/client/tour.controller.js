@@ -11,3 +11,9 @@ module.exports.getTourList = async (req, res) => {
   })
 }
 
+
+module.exports.getTourDetails = async (req, res) => {
+  res.render('client/pages/tour-details.pug', {
+    pagetitle: "Tour Details"
+  })
+}

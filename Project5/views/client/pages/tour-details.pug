@@ -1,0 +1,288 @@
+extends ../layouts/default.pug
+include ../mixins/breadcrumb.pug
+include ../mixins/product-item.pug
+
+block main
+  +breadcrumb()
+
+  .section-10
+    .container
+      .inner-wrap
+        .inner-left
+          .box-image
+            .inner-image-main
+              .swiper.swiperImagesMain
+                .swiper-wrapper
+                  .swiper-slide
+                    .inner-image
+                      img(src="https://swiperjs.com/demos/images/nature-1.jpg")
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-2.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-3.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-4.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-5.jpg"
+                      )
+            .inner-image-thumb
+              .swiper.swiperImagesThumb
+                .swiper-wrapper
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-1.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-2.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-3.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-4.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-5.jpg"
+                      )
+                  .swiper-slide
+                    .inner-image
+                      img(
+                        alt=""
+                        src="https://swiperjs.com/demos/images/nature-1.jpg"
+                      )
+          .box-tour-info
+            .inner-title-main Thong Tin Tour
+            .inner-content
+              p
+                | Nói về dịch vụ, chắc chắn rồi, với một tiêu chí của một khách sạn 5 sao đẳng cấp,
+                |   mình tin rằng Indochine Palace đủ để cho bạn đánh giá 6 sao. Từ nhà hàng, cà phê,
+                |   đến trung tâm thể dục thể thao hiện đại đến Spa, xông hơi… tất tần tật các dịch vụ
+                |   mà bạn mong muốn đều có ở đây.. Từ nhà hàng, cà phê, đến trung tâm thể dục thể thao
+                |   hiện đại đến Spa, xông hơi… tất tần tật các dịch vụ mà bạn mong muốn đều có ở đây. .
+                |   Từ nhà hàng, cà phê, đến trung tâm thể dục thể thao hiện đại đến Spa, xông hơi…
+              img(
+                alt=""
+                src="/client/asset/images/Rectangle 1165.png"
+              )
+              p
+                | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo similique eligendi
+                |   voluptate earum nam consequuntur deserunt, doloremque rerum perferendis voluptatem,
+                |   distinctio quasi sint ipsum reiciendis ratione voluptates. Asperiores, minus autem.
+            .inner-button
+              button.xemtatca-button Xem tat ca
+          .box-tour-schedule
+            .inner-title-main Lich Trinh Tour
+            .inner-list
+              .inner-line
+              .inner-item
+                .inner-dot
+                .inner-title NGÀY 1 | TP.HCM – THỦ ĐÔ HÀ NỘI
+                .inner-content
+                  p
+                    b Sáng
+                    | : HDV TOPTEN TRAVEL® Đón Quý Khách tại sân bay Tân Sơn Nhất làm
+                    |   thủ tục
+                    |   check in cho đoàn đi Hà Nội. Quý Khách vui lòng có mặt ở sân bay trước 2
+                    |   tiếng so với giờ bay. Đến sân
+                    |   bay Hà Nội – Xe và HDV đón Đoàn đưa về Khách sạn nghỉ ngơi. Đoàn dùng bữa
+                    |   trưa
+                    |   tại Nhà Hàng.
+                    br
+                    b Chiều
+                    | : Tham quan
+                    |   Viếng Chùa Trấn Quốc – Ngôi chùa Trấn Bắc cổ kính nhất Việt Nam với 1.500
+                    |   năm
+                    |   tuổi nằm trên bán đảo cồn Quy linh thiêng, với truyền thuyết và huyền thoại
+                    |   về
+                    |   Hồ Tây, hồ Trúc Bạch.
+                    |   Đền Ngọc Sơn, Cầu Thê Húc, hồ Hoàn Kiếm - Trực tiếp chứng kiến cụ Rùa dài
+                    |   2,1m,
+                    |   ngang 1,2m được trưng bày tại đền Ngọc Sơn.
+                    |   Văn Miếu Quốc Tử Giám – Nơi đựoc xem như Trường Đại học đầu tiên của Việt
+                    |   Nam
+                    |   với 82 tấm bia Tiến sỹ còn lưu danh sử sách.
+                    br
+                    b Tối
+                    | : Đoàn dùng cơm tối tại nhà hàng. Đoàn tự do nghỉ ngơi hoặc dạo
+                    |   chơi thăm phố
+                    |   cổ Hà Nội, dạo Hồ Gươm, mua sắm tại Chợ đêm Hà Nội sầm uất...
+                  img(
+                    alt=""
+                    src="/client/asset/images/Rectangle 1296.png"
+                  )
+              .inner-item
+                .inner-dot
+                .inner-title NGÀY 2 | TP.HCM – THỦ ĐÔ HÀ NỘI
+                .inner-content
+                  p
+                    b Sáng
+                    | : HDV TOPTEN TRAVEL® Đón Quý Khách tại sân bay Tân Sơn Nhất làm
+                    |   thủ tục
+                    |   check in cho đoàn đi Hà Nội. Quý Khách vui lòng có mặt ở sân bay trước 2
+                    |   tiếng so với giờ bay. Đến sân
+                    |   bay Hà Nội – Xe và HDV đón Đoàn đưa về Khách sạn nghỉ ngơi. Đoàn dùng bữa
+                    |   trưa
+                    |   tại Nhà Hàng.
+                    br
+                    b Chiều
+                    | : Tham quan
+                    |   Viếng Chùa Trấn Quốc – Ngôi chùa Trấn Bắc cổ kính nhất Việt Nam với 1.500
+                    |   năm
+                    |   tuổi nằm trên bán đảo cồn Quy linh thiêng, với truyền thuyết và huyền thoại
+                    |   về
+                    |   Hồ Tây, hồ Trúc Bạch.
+                    |   Đền Ngọc Sơn, Cầu Thê Húc, hồ Hoàn Kiếm - Trực tiếp chứng kiến cụ Rùa dài
+                    |   2,1m,
+                    |   ngang 1,2m được trưng bày tại đền Ngọc Sơn.
+                    |   Văn Miếu Quốc Tử Giám – Nơi đựoc xem như Trường Đại học đầu tiên của Việt
+                    |   Nam
+                    |   với 82 tấm bia Tiến sỹ còn lưu danh sử sách.
+                    br
+                    b Tối
+                    | : Đoàn dùng cơm tối tại nhà hàng. Đoàn tự do nghỉ ngơi hoặc dạo
+                    |   chơi thăm phố
+                    |   cổ Hà Nội, dạo Hồ Gươm, mua sắm tại Chợ đêm Hà Nội sầm uất...
+                  img(
+                    alt=""
+                    src="/client/asset/images/Rectangle 1296.png"
+                  )
+              .inner-item
+                .inner-dot
+                .inner-title NGÀY 3 | TP.HCM – THỦ ĐÔ HÀ NỘI
+                .inner-content
+                  p
+                    b Sáng
+                    | : HDV TOPTEN TRAVEL® Đón Quý Khách tại sân bay Tân Sơn Nhất làm
+                    |   thủ tục
+                    |   check in cho đoàn đi Hà Nội. Quý Khách vui lòng có mặt ở sân bay trước 2
+                    |   tiếng so với giờ bay. Đến sân
+                    |   bay Hà Nội – Xe và HDV đón Đoàn đưa về Khách sạn nghỉ ngơi. Đoàn dùng bữa
+                    |   trưa
+                    |   tại Nhà Hàng.
+                    br
+                    b Chiều
+                    | : Tham quan
+                    |   Viếng Chùa Trấn Quốc – Ngôi chùa Trấn Bắc cổ kính nhất Việt Nam với 1.500
+                    |   năm
+                    |   tuổi nằm trên bán đảo cồn Quy linh thiêng, với truyền thuyết và huyền thoại
+                    |   về
+                    |   Hồ Tây, hồ Trúc Bạch.
+                    |   Đền Ngọc Sơn, Cầu Thê Húc, hồ Hoàn Kiếm - Trực tiếp chứng kiến cụ Rùa dài
+                    |   2,1m,
+                    |   ngang 1,2m được trưng bày tại đền Ngọc Sơn.
+                    |   Văn Miếu Quốc Tử Giám – Nơi đựoc xem như Trường Đại học đầu tiên của Việt
+                    |   Nam
+                    |   với 82 tấm bia Tiến sỹ còn lưu danh sử sách.
+                    br
+                    b Tối
+                    | : Đoàn dùng cơm tối tại nhà hàng. Đoàn tự do nghỉ ngơi hoặc dạo
+                    |   chơi thăm phố
+                    |   cổ Hà Nội, dạo Hồ Gươm, mua sắm tại Chợ đêm Hà Nội sầm uất...
+                  img(
+                    alt=""
+                    src="/client/asset/images/Rectangle 1296.png"
+                  )
+        .inner-right
+          .box-tour-details
+            .inner-title-main Chuyến Đi Của Bạn
+            .inner-product
+              .inner-image
+                img(
+                  alt=""
+                  src="/client/asset/images/Rectangle 1212.png"
+                )
+              .inner-info
+                .inner-title Hà Nội - Ninh Bình - Hạ Long - Yên Tử - Sapa | 6N5D
+                .inner-rating
+                  .inner-stars
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-regular.fa-star
+                  .inner-number 500 lượt đánh giá
+            .inner-meta
+              .inner-item
+                i.fa-solid.fa-ticket-simple
+                span Ma Tour:
+                span.inner-hilight 28T00001
+              .inner-item
+                i.fa-solid.fa-calendar-days
+                span Thoi Gian:
+                span.inner-hilight 6 Ngay 5 Dem
+              .inner-item
+                i.fa-solid.fa-car
+                span Phuong Tien:
+                span.inner-hilight Xe Khach 45 Cho
+              .inner-item
+                i.fa-solid.fa-calendar-days
+                span Ngay Khoi Hanh:
+                span.inner-hilight 20/10/2024
+            .inner-group
+              .inner-label Khoi Hanh Tai:
+              select.inner-select(name="")
+                option(value="") Ha Noi
+                option(value="") Ha Noi
+                option(value="") Ha Noi
+            .inner-group
+              .inner-label So Luong Khach Hang
+              .inner-list
+                .inner-item
+                  .inner-item-label Nguoi Lon:
+                  .inner-item-input
+                    input(type="number")
+                  .inner-price
+                    span 1
+                    span x
+                    span.inner-highlight 10.000.000
+                .inner-item
+                  .inner-item-label Tre em:
+                  .inner-item-input
+                    input(type="number")
+                  .inner-price
+                    span 1
+                    span x
+                    span.inner-highlight
+                    | 10.000.000
+                .inner-item
+                  .inner-item-label Em be:
+                  .inner-item-input
+                    input(type="number")
+                  .inner-price
+                    span 1
+                    span x
+                    span.inner-highlight
+                    | 10.000.000
+            .inner-total
+              .inner-label Tong Cong:
+              .inner-price 10.000.000AUD
+            button.inner-button-add-cart Them Vao Gio Hang

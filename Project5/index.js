@@ -11,12 +11,21 @@ app.set(`views`, path.join(__dirname, `views`));
 app.set(`view engine`, `pug`);
 
 const clientRouter = require('./routers/client/index.router');
+const adminRouter= require('./routers/admin/index.router');
+const { pathAdmin } = require('./config/variable.config');
 
 app.use(express.static(path.join(__dirname, `public`)));
 
+//Create global variable in pug
+app.locals.pathAdmin = pathAdmin;
+
+
+//Accept JSON data from request body
+app.use(express.json());
+
 app.use('/', clientRouter);
 app.use('/tours', clientRouter);
-
+app.use(`/${pathAdmin}`, adminRouter);
 
 app.get('/users', (req, res) => {
   res.send('Main User Management1!')

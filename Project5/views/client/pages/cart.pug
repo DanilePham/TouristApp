@@ -1,0 +1,204 @@
+extends ../layouts/default.pug
+
+block main
+  .section-11
+    .container
+      .inner-wrap
+        .inner-title-main
+          .inner-title Gio Hang
+          a.inner-back(href="#")
+            | Quay lai mua hang
+            i.fa-solid.fa-angles-right
+        .inner-tour-list
+          .inner-tour-item
+            .inner-actions
+              button.inner-delete
+                i.fa-solid.fa-xmark
+              input.inner-check(type="checkbox")
+            .inner-product
+              .inner-image
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="/client/asset/images/Image.png"
+                  )
+              .inner-content
+                .inner-content1
+                  a(href="#") Tour Châu Âu Đón Noel | 11N10D | Pháp – Thụy Sĩ – Ý
+                .inner-meta
+                  div
+                    | Ma Tour:
+                    b 12345689
+                  div
+                    | Ngay Khoi Hanh:
+                    b 20/10/2024
+                  div
+                    | Khoi Hanh Tai:
+                    b Long Xuyen
+            .inner-third
+              .inner-label So Luong Khach Hang
+              .inner-list
+                .inner-item
+                  .inner-item-label Nguoi Lon:
+                  input.inner-item-input(
+                    value="1" 
+                    name="" 
+                    type="number"
+                  )
+                  .inner-item-price
+                    span 1
+                    span x
+                    span.inner-highlight 9.000.000
+                .inner-item
+                  .inner-item-label Nguoi Lon:
+                  input.inner-item-input(
+                    name="" 
+                    type="number"
+                  )
+                  .inner-item-price
+                    span 1
+                    span x
+                    span.inner-highlight 5.000.000
+                .inner-item
+                  .inner-item-label Nguoi Lon:
+                  input.inner-item-input(
+                    name="" 
+                    type="number"
+                  )
+                  .inner-item-price
+                    span 1
+                    span x
+                    span.inner-highlight 10.000.000
+
+          .inner-tour-item
+            .inner-actions
+              button.inner-delete
+                i.fa-solid.fa-xmark
+              input.inner-check(type="checkbox")
+            .inner-product
+              .inner-image
+                a(href="#")
+                  img(
+                    alt="" 
+                    src="/client/asset/images/Image.png"
+                  )
+              .inner-content
+                .inner-content1
+                  a(href="#") Tour Châu Âu Đón Noel | 11N10D | Pháp – Thụy Sĩ – Ý
+                .inner-meta
+                  div
+                    | Ma Tour:
+                    b 12345689
+                  div
+                    | Ngay Khoi Hanh:
+                    b 20/10/2024
+                  div
+                    | Khoi Hanh Tai:
+                    b Long Xuyen
+            .inner-third
+              .inner-label So Luong Khach Hang
+              .inner-item
+                .inner-item-label Nguoi Lon
+                input.inner-item-input(
+                  name="" 
+                  type="number"
+                )
+                .inner-item-price
+                  span 1
+                  span x
+                  span.inner-highlight 10.000.000
+              .inner-item
+                .inner-item-label Nguoi Lon
+                input.inner-item-input(
+                  name="" 
+                  type="number"
+                )
+                .inner-item-price
+                  span 1
+                  span x
+                  span.inner-highlight 9.000.000
+              .inner-item
+                .inner-item-label Nguoi Lon
+                input.inner-item-input(
+                  name="" 
+                  type="number"
+                )
+                .inner-item-price
+                  span 1
+                  span x
+                  span.inner-highlight 5.000.000
+
+        .inner-coupon
+          form#coupon-form(action="")
+            input#coupon-input.inner-input(
+              name="coupon" 
+              type="text"
+            )
+            button.inner-button Áp Dụng
+
+        .inner-total
+          .inner-total1
+            .tt1 Tong Tien
+            span 15.070.000 AUD
+          .inner-total1
+            .tt1 Giam
+            span 15.070.000 AUD
+          .inner-total1
+            .tt1 Thanh Toan
+            span.active 15.070.000 AUD
+
+  .section-12
+    .container
+      .inner-wrap
+        form#customer-details-form(action="")
+          .inner-title-main Thong Tin Khach Hang
+          .inner-list-group
+            .inner-group
+              input#name-input(
+                placeholder="Ho va Ten *" 
+                name="name" 
+                type="text"
+              )
+            .inner-group
+              input#phone-input(
+                placeholder="So Dien Thoai *" 
+                name="phone" 
+                type="text"
+              )
+            .inner-group.inner-two-col
+              textarea#note-input(
+                placeholder="Ghi Chu" 
+                name="note"
+              )
+          .inner-title-main Chon Phuong Thuc Thanh Toan
+          .inner-list-method
+            .inner-item
+              input#methodMoney1(
+                checked="" 
+                value="money-1" 
+                name="method" 
+                type="radio"
+              )
+              label(for="methodMoney1") Thanh toan tien mat khi di tour
+            .inner-item
+              input#methodMoney2(
+                value="money-2" 
+                name="method" 
+                type="radio"
+              )
+              label(for="methodMoney2") Vi MOMO
+            .inner-item
+              input#methodMoney3(
+                value="money-3" 
+                name="method" 
+                type="radio"
+              )
+              label(for="methodMoney3") Thanh toan tien mat khi di tour
+          .inner-info-bank
+            .inner-title Thong tin chuyen khoan
+            .inner-text
+              div Ngân hàng : Vietcombank
+              div Tên tài khoản: Le Van A
+              div STK: 0123456789
+          .inner-button
+            button Dat Tour

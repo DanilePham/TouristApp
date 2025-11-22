@@ -1,0 +1,11 @@
+extends ../layouts/account.pug
+
+block main 
+    .form-account 
+        h2.inner-title Account Create Successfully 
+        p.inner-desc Your admin account has been created successfully. Please check your email for further instructions to complete the setup process.
+
+        .inner-more 
+            span Approved?
+            a(href=`/${pathAdmin}/account/login`) Go to Login Page
+

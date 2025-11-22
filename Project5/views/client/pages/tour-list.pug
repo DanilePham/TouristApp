@@ -1,8 +1,107 @@
 extends ../layouts/default.pug
+include ../mixins/breadcrumb.pug
+include ../mixins/product-item.pug
 
 block main
-     h2 xin chao #{pagetitle}
-     
-     ul 
-        each tour in tourList
-            li #{tour.name} - #{tour.vehicle} - #{tour.time}
+  +breadcrumb()
+
+  .section-9
+    .container
+      .inner-wrap
+        .inner-left
+          .box-filter
+            .inner-filter-list
+              .inner-head
+                .inner-title Bo Loc
+                i.fa-solid.fa-filter
+
+              .inner-group
+                .inner-label Diem Di
+                select
+                  option(value="") --Chon Diem Di--
+                  option(value="") An Giang
+                  option(value="") Long Xuyen
+                  option(value="") Can Tho
+                  option(value="") Hau Giang
+
+              .inner-group
+                .inner-label Diem Den
+                select
+                  option(value="") --Chon Diem Den--
+                  option(value="") An Giang
+                  option(value="") Long Xuyen
+                  option(value="") Can Tho
+                  option(value="") Hau Giang
+
+              .inner-group
+                .inner-label Ngay khoi hanh
+                input(type="date")
+
+              .inner-group
+                .inner-label So Luong Hanh Khach
+                .inner-list-input
+                  .inner-input-item
+                    .inner-label Nguoi Lon
+                    input(type="number" value="0")
+                  .inner-input-item
+                    .inner-label Tre em
+                    input(type="number" value="0")
+                  .inner-input-item
+                    .inner-label Em be
+                    input(type="number" value="0")
+
+              .inner-group
+                .inner-label Muc Gia
+                select
+                  option(value="") -- Chon Khoang Gia --
+                  option(value="") Duoi 1 Trieu
+                  option(value="") 1 - 3 Trieu
+                  option(value="") 3 - 5 Trieu
+                  option(value="") Tren 5 Trieu
+
+              button.inner-button Ap Dung
+
+          .inner-overlay
+
+        .inner-right
+          .inner-info1
+            h2.inner-title Tour Nuoc Ngoai
+            .inner-des
+              | Du lịch Châu Á: là châu lục lớn và đông dân nhất...
+
+          .inner-info2
+            .inner-sort
+              .inner-label Sap Xep:
+              button
+                | Gia Tang Dan
+                i.fa-solid.fa-arrow-up
+              button
+                | Gia Giam Dan
+                i.fa-solid.fa-down-long
+              button.active
+                | Gia Khuyen Mai
+                i.fa-solid.fa-tags
+              button
+                | Xem Nhieu
+                i.fa-solid.fa-eye
+            .inner-total-item
+              | Tat Ca:
+              b 101 Tour
+            button.inner-button-filter
+              | Bo Loc
+              i.fa-solid.fa-filter
+
+          .inner-list-tour
+            +product-item()
+            +product-item()
+            
+          .box-pagination
+            .inner-list-button
+              button
+                i.fa-solid.fa-angles-left
+              button.active 1
+              button 2
+              button 3
+              button 4
+              button
+                i.fa-solid.fa-angles-right
