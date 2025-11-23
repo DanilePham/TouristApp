@@ -9,6 +9,7 @@ const bcrypt=require("bcryptjs");
   res.render('admin/page/register', { pagetitle: "Register" })
 }
 
+
  module.exports.registerAccountPagePost = async (req, res) => {
   const existingAccount= await AccountAdmin.findOne({
     email: req.body.email
@@ -27,6 +28,8 @@ const bcrypt=require("bcryptjs");
   //Hash password before saving to database
   req.body.password= await bcrypt.hash(req.body.password,10);
 
+  console.log(req.body);
+
   const newAccount = new AccountAdmin(req.body);
   await newAccount.save();
 
@@ -35,6 +38,7 @@ const bcrypt=require("bcryptjs");
     message:"Register successfully"
   });
 }
+
 
 module.exports.registerAccountPageInitial = (req, res) => {
   res.render('admin/page/register-initial', { pagetitle: "Register Initial" })

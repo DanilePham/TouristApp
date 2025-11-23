@@ -1,6 +1,6 @@
 const router = require('express').Router();
-
 const accountController = require('../../controllers/admin/account.controller');
+const accountValidate = require('../../validates/admin/account.validate');
 
 router.get('/login', accountController.getAccountPage);
 
@@ -8,7 +8,7 @@ router.get('/register', accountController.registerAccountPage);
 
 router.get('/register-initial', accountController.registerAccountPageInitial);
 
-router.post('/register', accountController.registerAccountPagePost);
+router.post('/register', accountValidate.registerAccountPagePost, accountController.registerAccountPagePost);
 
 router.get('/forgot-password', accountController.forgotPasswordPage);
 

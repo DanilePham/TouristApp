@@ -161,6 +161,9 @@ if (registerForm) {
                         drawNotify(data.code, data.message);
                         window.location.href = `/${pathAdmin}/account/register-initial`;
                     }
+                    if (data.code === "ValidationError") {
+                        notify.error(data.message);
+                    }
                 })
         });
 
