@@ -1,38 +1,4 @@
-//inital notyf
-var notify = new Notyf({
-    duration: 3000,
-    position: {
-        x: 'right',
-        y: 'top'
-    },
-    dismissible: true,
-});
-//End inital notyf
 
-//Show the success notify after redirect
-const notifySession = sessionStorage.getItem("notify");
-if (notifySession) {
-    const notifyData = JSON.parse(notifySession);
-    if (notifyData.code === "Success") {
-        notify.success(notifyData.message);
-    }
-    if (notifyData.code === "Exist") {
-        notify.error(notifyData.message);
-    }
-    sessionStorage.removeItem("notify");
-}
-//End show the success notify after redirect
-
-
-//draw notify
-const drawNotify = (code, message) => {
-    const data = {
-        code: code,
-        message: message
-    }
-    sessionStorage.setItem("notify", JSON.stringify(data));
-}
-//End draw notify
 
 //Login Form
 const loginForm = document.querySelector('#loginForm');
@@ -66,7 +32,31 @@ if (loginForm) {
             const Password = event.target.password.value;
             const rememberPass = event.target.rememberPassword.checked;
             console.log('Login Form Submitted', { email, Password, rememberPass });
-            // You can add your form submission logic here
+
+
+             const dataFinal = {
+                email: email,
+                password: Password
+            };
+
+            fetch(`/${pathAdmin}/account/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataFinal)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === "error") {
+                        notify.error(data.message);
+                    }
+                    if (data.code === "Success") {
+                        drawNotify(data.code, data.message);
+                        window.location.href = `/${pathAdmin}/dashboard`;
+                    }
+                })
+           
         });
 
 }
