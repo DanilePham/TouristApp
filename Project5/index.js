@@ -13,6 +13,7 @@ app.set(`view engine`, `pug`);
 const clientRouter = require('./routers/client/index.router');
 const adminRouter= require('./routers/admin/index.router');
 const { pathAdmin } = require('./config/variable.config');
+const cookieParser = require('cookie-parser');
 
 
 app.use(express.static(path.join(__dirname, `public`)));
@@ -26,6 +27,8 @@ app.locals.pathAdmin = pathAdmin;
 
 //Accept JSON data from request body
 app.use(express.json());
+//Take cookies from request
+app.use(cookieParser());
 
 app.use('/', clientRouter);
 app.use('/tours', clientRouter);
