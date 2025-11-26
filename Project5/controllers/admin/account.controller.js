@@ -1,5 +1,7 @@
 const { AccountAdmin } = require('../../models/account-admin.model');
+
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 module.exports.getAccountPage = (req, res) => {
   res.render('admin/page/login', { pagetitle: "Log in" })
@@ -10,41 +12,62 @@ module.exports.registerAccountPage = (req, res) => {
 }
 
 module.exports.loginAccountPagePost = async (req, res) => {
-    const { email, password } = req.body;
-    const existingAccount = await AccountAdmin.findOne({ email: email });
+  const { email, password } = req.body;
+  const existingAccount = await AccountAdmin.findOne({ email: email });
 
-    if (!existingAccount) {
-      res.json({
-        code: "error",
-        message: "Email not registered"
-      });
-      return;
-    }
-
-
-    const isPasswordValid = await bcrypt.compare(password, existingAccount.password);
-    
-    if (!isPasswordValid) {
-      res.json({
-        code: "error",
-        message: "Invalid password"
-      });
-      return;
-    }
-
-    if (existingAccount.status != "active") {
-      res.json({
-        code: "error",
-        message: "Account is not active"
-      });
-      return;
-    }
-
+  if (!existingAccount) {
     res.json({
-      code: "Success",
-      message: "Login successfully"
+      code: "error",
+      message: "Email not registered"
     });
+    return;
   }
+
+
+  const isPasswordValid = await bcrypt.compare(password, existingAccount.password);
+
+  if (!isPasswordValid) {
+    res.json({
+      code: "error",
+      message: "Invalid password"
+    });
+    return;
+  }
+
+  if (existingAccount.status != "active") {
+    res.json({
+      code: "error",
+      message: "Account is not active"
+    });
+    return;
+  }
+
+  //Create JWT
+  const token = jwt.sign(
+    {
+      id: existingAccount.id,
+      email: existingAccount.email
+    },
+    "MUONBIETTHONGTINCONLAUNHACUNG",
+    {
+      expiresIn: '14d'
+    }
+  );
+
+  //Save token to cookie
+  res.cookie("token", token, {
+    maxAge: 14 * 24 * 60 * 60 * 1000, //14 days
+    httpOnly: true, // Just only allow cookie access by server
+    sameSite: "strict", // Not allow cross-site cookie
+  });
+
+  console.log(token);
+
+  res.json({
+    code: "Success",
+    message: "Login successfully"
+  });
+}
 
 
 module.exports.registerAccountPagePost = async (req, res) => {
@@ -96,4 +119,9 @@ module.exports.otpPasswordPage = (req, res) => {
 
 module.exports.resetPasswordPage = (req, res) => {
   res.render('admin/page/reset-password', { pagetitle: "Reset Password" })
+}
+
+module.exports.logoutAccountPage = (req, res) => {
+  res.clearCookie("token");
+  res.redirect(`/${pathAdmin}/account/login`);
 }

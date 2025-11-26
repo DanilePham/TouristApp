@@ -14,7 +14,11 @@ const clientRouter = require('./routers/client/index.router');
 const adminRouter= require('./routers/admin/index.router');
 const { pathAdmin } = require('./config/variable.config');
 
+
 app.use(express.static(path.join(__dirname, `public`)));
+
+//create global variable for using in backend
+global.pathAdmin = pathAdmin; 
 
 //Create global variable in pug
 app.locals.pathAdmin = pathAdmin;
