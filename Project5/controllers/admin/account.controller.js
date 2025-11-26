@@ -12,7 +12,7 @@ module.exports.registerAccountPage = (req, res) => {
 }
 
 module.exports.loginAccountPagePost = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, rememberPass } = req.body;
   const existingAccount = await AccountAdmin.findOne({ email: email });
 
   if (!existingAccount) {
@@ -50,13 +50,13 @@ module.exports.loginAccountPagePost = async (req, res) => {
     },
     "MUONBIETTHONGTINCONLAUNHACUNG",
     {
-      expiresIn: '14d'
+      expiresIn: rememberPass ? '14d' : '1d'
     }
   );
 
   //Save token to cookie
   res.cookie("token", token, {
-    maxAge: 14 * 24 * 60 * 60 * 1000, //14 days
+    maxAge: rememberPass ? 14 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000, //14 days or 1 day
     httpOnly: true, // Just only allow cookie access by server
     sameSite: "strict", // Not allow cross-site cookie
   });

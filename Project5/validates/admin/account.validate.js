@@ -65,7 +65,7 @@ module.exports.loginAccountPagePost= async (req, res,next) => {
             .messages({
                 'string.empty': 'Password is required',
             }),
-
+        rememberPass: Joi.boolean()
     });
 
     const { error } = schema.validate(req.body);
