@@ -13,14 +13,14 @@ const authenMiddleware = require('../../middlewares/admin/authentication.middlew
 
 router.use('/dashboard', authenMiddleware.verifyToken, dashboardRouter);
 router.use('/account', accountRouter);
-router.use('/categories', categoryRouter);
-router.use('/tours', tourRouter);
-router.use('/users', userRouter);
-router.use('/order', orderRouter);
-router.use('/contact', contactRouter)
-router.use('/settings', settingRouter)
-router.use('/profile', profileRouter)
-router.use((req, res) => {
+router.use('/categories', authenMiddleware.verifyToken,categoryRouter);
+router.use('/tours',authenMiddleware.verifyToken, tourRouter);
+router.use('/users', authenMiddleware.verifyToken,userRouter);
+router.use('/order', authenMiddleware.verifyToken,orderRouter);
+router.use('/contact', authenMiddleware.verifyToken,contactRouter)
+router.use('/settings', authenMiddleware.verifyToken,settingRouter)
+router.use('/profile', authenMiddleware.verifyToken,profileRouter)
+router.use(authenMiddleware.verifyToken,(req, res) => {
     res.render('admin/page/error-404', {
         pageTitle: "404 Not Found"
     })
