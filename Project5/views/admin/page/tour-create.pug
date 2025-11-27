@@ -1,9 +1,6 @@
 extends ../layouts/default.pug
 include ../mixins/checkbox.pug
 
-block title
-  title Tạo tour
-
 block main
   h1.box-title Tạo tour
 
@@ -111,5 +108,5 @@ block main
           .inner-schedule-create + Thêm lịch trình
       .inner-button.inner-two-col
         button Tạo mới
-    .inner-back 
-      a(href="#") Quay lại danh sách
+    .inner-back
+      a(href=`/${pathAdmin}/tours/list`) Quay lại danh sách

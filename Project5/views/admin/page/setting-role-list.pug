@@ -1,9 +1,6 @@
 extends ../layouts/default.pug
 include ../mixins/checkbox.pug
 
-block title
-  title Nhóm quyền
-
 block main
   h1.box-title Nhóm quyền
 
@@ -23,7 +20,7 @@ block main
         <i class="fa-solid fa-magnifying-glass"></i>
         input(type="text" placeholder="Tìm kiếm")
       .inner-button-create
-        a(href="#")  + Tạo mới
+        a(href=`/${pathAdmin}/settings/role/create`)  + Tạo mới
   //- End Section 5
 
   //- Section 6
