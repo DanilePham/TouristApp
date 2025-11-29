@@ -2,6 +2,8 @@ const { AccountAdmin } = require('../../models/account-admin.model');
 
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const {generateSlug} = require('../../helpers/generate.helper');
+const { ForgotPassword } = require('../../models/forgot-password.model');
 
 module.exports.getAccountPage = (req, res) => {
   res.render('admin/page/login', { pagetitle: "Log in" })
@@ -124,4 +126,52 @@ module.exports.resetPasswordPage = (req, res) => {
 module.exports.logoutAccountPage = (req, res) => {
   res.clearCookie("token");
   res.redirect(`/${pathAdmin}/account/login`);
+}
+
+module.exports.forgotPasswordPagePost = async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+
+  //Check if email exists
+  const existingAccount = await AccountAdmin.findOne({ email: email , status: "active"});
+  
+  if (!existingAccount) {
+    res.json({
+      code: "error",
+      message: "Email not registered"
+    });
+    return;
+  }
+
+  //Check if there is an OTP record that is not expired yet
+  const existingOtp = await ForgotPassword.findOne({ email: email });
+  if (existingOtp) {
+    res.json({
+      code: "error",
+      message: "An OTP has already been sent to your email. Please check your email."
+    });
+    return;
+  }
+
+  //send OTP code to customer email  const otp =generateSlug(4);
+  const otp =generateSlug(4);
+  console.log(otp);
+
+
+  // Save into CSDL after 5 minutes expire
+  const recordOtp = new ForgotPassword({
+    email: email,
+    otp: otp,
+    expireAt: Date.now() + 5 * 60 * 1000 // 5 minutes from now
+  });
+  await recordOtp.save();
+
+  //send OTP for customer email
+  
+
+
+  res.json({
+    code: "error",
+    message: "OTP has been sent to your email"
+  });
 }

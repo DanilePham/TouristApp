@@ -25,5 +25,5 @@ router.use(authenMiddleware.verifyToken,(req, res) => {
         pageTitle: "404 Not Found"
     })
 })
-
+ 
 module.exports = router;

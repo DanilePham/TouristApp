@@ -12,6 +12,8 @@ router.get('/register-initial', accountController.registerAccountPageInitial);
 
 router.post('/register', accountValidate.registerAccountPagePost, accountController.registerAccountPagePost);
 
+router.post('/forgot-password', accountValidate.forgotPasswordPagePost, accountController.forgotPasswordPagePost);
+
 router.get('/forgot-password', accountController.forgotPasswordPage);
 
 router.get('/otp-password', accountController.otpPasswordPage);
