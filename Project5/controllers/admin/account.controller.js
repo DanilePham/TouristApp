@@ -2,8 +2,9 @@ const { AccountAdmin } = require('../../models/account-admin.model');
 
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-const {generateSlug} = require('../../helpers/generate.helper');
+const { generateSlug } = require('../../helpers/generate.helper');
 const { ForgotPassword } = require('../../models/forgot-password.model');
+const { sendMail } = require('../../helpers/mail.helper');
 
 module.exports.getAccountPage = (req, res) => {
   res.render('admin/page/login', { pagetitle: "Log in" })
@@ -133,8 +134,8 @@ module.exports.forgotPasswordPagePost = async (req, res) => {
   console.log(email);
 
   //Check if email exists
-  const existingAccount = await AccountAdmin.findOne({ email: email , status: "active"});
-  
+  const existingAccount = await AccountAdmin.findOne({ email: email, status: "active" });
+
   if (!existingAccount) {
     res.json({
       code: "error",
@@ -154,7 +155,7 @@ module.exports.forgotPasswordPagePost = async (req, res) => {
   }
 
   //send OTP code to customer email  const otp =generateSlug(4);
-  const otp =generateSlug(4);
+  const otp = generateSlug(4);
   console.log(otp);
 
 
@@ -167,11 +168,16 @@ module.exports.forgotPasswordPagePost = async (req, res) => {
   await recordOtp.save();
 
   //send OTP for customer email
-  
+  const subject="Your OTP Code for Password Reset";
+  const content=`Your OTP is: <b>${otp}. OTP is expire within 5 minutes`;
+  sendMail(email, subject,content);
 
 
   res.json({
-    code: "error",
+    code: "success",
     message: "OTP has been sent to your email"
   });
 }
+
+//qquoccuongpham434@gmail.com
+//infl qhpy kjad wnpw
