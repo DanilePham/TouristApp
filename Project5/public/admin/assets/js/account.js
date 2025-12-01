@@ -178,6 +178,7 @@ if(forgotPasswordForm) {
       },
     ])
     .onSuccess((event) => {
+      event.preventDefault();
       const email = event.target.email.value;
       const dataFinal = {
         email: email
@@ -198,6 +199,7 @@ if(forgotPasswordForm) {
 
           if(data.code == "success") {
             drawNotify(data.code, data.message);
+            console.log("EMAIL:", email);
             window.location.href = `/${pathAdmin}/account/otp-password?email=${email}`;
           }
         })

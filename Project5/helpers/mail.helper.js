@@ -8,14 +8,14 @@ module.exports.sendMail=(email,subject,content) => {
       port: 587,
       secure: false, // use false for STARTTLS; true for SSL on port 465
       auth: {
-        user: 'quoccuongpham434@gmail.com',
-        pass: 'infl qhpy kjad wnpw', // App password or real password if less secure apps are allowed
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD, // App password or real password if less secure apps are allowed
       }
     });
     
     // Configure the mailoptions object
     const mailOptions = {
-      from: 'quoccuongpham434@gmail.com',
+      from: process.env.EMAIL_USERNAME,
       to: email,
       subject: subject,
       text: content
