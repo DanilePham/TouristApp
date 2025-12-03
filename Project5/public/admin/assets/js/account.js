@@ -221,14 +221,13 @@ if(otpPasswordForm) {
     ])
     .onSuccess((event) => {
       const otp = event.target.otp.value;
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const email = urlParams.get("email");
+      const urlParams =  new URLSearchParams(window.location.search);
+      const email = urlParams.get('email');
 
       const dataFinal = {
         email: email,
-        otp: otp,
-      };
+        otp: otp
+      }
 
       fetch(`/${pathAdmin}/account/otp-password`, {
         method: "POST",
@@ -248,6 +247,7 @@ if(otpPasswordForm) {
             window.location.href = `/${pathAdmin}/account/reset-password`;
           }
         })
+
     })
 }
 // End OTP Password Form

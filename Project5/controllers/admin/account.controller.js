@@ -168,14 +168,58 @@ module.exports.forgotPasswordPagePost = async (req, res) => {
   await recordOtp.save();
 
   //send OTP for customer email
-  const subject="Your OTP Code for Password Reset";
-  const content=`Your OTP is: <b>${otp}. OTP is expire within 5 minutes`;
-  sendMail(email, subject,content);
+  const subject = "Your OTP Code for Password Reset";
+  const content = `Your OTP is: <b>${otp}. OTP is expire within 5 minutes`;
+  sendMail(email, subject, content);
 
 
   res.json({
     code: "success",
     message: "OTP has been sent to your email"
+  });
+}
+
+module.exports.otpPasswordPagePost = async (req, res) => {
+  const { email, otp } = req.body;
+
+  //Check if OTP is valid
+  const existingOtp = await ForgotPassword.findOne({ email: email });
+  if (!existingOtp) {
+    res.json({
+      code: "error",
+      message: "Email not found"
+    });
+    return;
+  }
+  
+  //
+  const existEmailInOtpPassword = await ForgotPassword.findOne({ email: email, otp: otp });
+  if (!existEmailInOtpPassword) {
+    res.json({
+      code: "error",
+      message: "Invalid OTP"
+    });
+    return;
+  }
+
+  const token = jwt.sign({
+    id: existingOtp.id,
+    email: existingOtp.email
+  }
+  , "MUONBIETTHONGTINCONLAUNHACUNG", {
+    expiresIn: "1d"// Token valid for 14 days or 1 day
+  });
+
+  //Save token to cookie
+  res.cookie("token", token, {
+    maxAge: 24 * 60 * 60 * 1000, //14 days or 1 day
+    httpOnly: true, // Just only allow cookie access by server
+    sameSite: "strict", // Not allow cross-site cookie
+  });
+  
+  res.json({
+    code: "success",
+    message: "OTP is valid"
   });
 }
 

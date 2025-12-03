@@ -107,3 +107,33 @@ module.exports.forgotPasswordPagePost= async (req, res,next) => {
     next();
 }
 
+module.exports.otpPasswordPagePost= async (req, res,next) => {
+    const schema = Joi.object({
+        email: Joi.string()
+            .email()
+            .required()
+            .messages({
+                'string.empty': 'Email is required',
+                'string.email': 'Email must be a valid email address',
+            })
+        ,otp: Joi.string()
+            .required()
+            .messages({
+                'string.empty': 'OTP is required',
+            })
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+        const errorMessage = error.details[0].message;
+
+        res.json({
+            code: "ValidationError",
+            message: errorMessage
+        });
+        return;
+    }
+
+    next();
+}
+
