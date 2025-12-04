@@ -182,45 +182,72 @@ module.exports.forgotPasswordPagePost = async (req, res) => {
 module.exports.otpPasswordPagePost = async (req, res) => {
   const { email, otp } = req.body;
 
-  //Check if OTP is valid
   const existingOtp = await ForgotPassword.findOne({ email: email });
   if (!existingOtp) {
-    res.json({
+    return res.json({
       code: "error",
       message: "Email not found"
     });
-    return;
   }
-  
-  //
+
   const existEmailInOtpPassword = await ForgotPassword.findOne({ email: email, otp: otp });
   if (!existEmailInOtpPassword) {
-    res.json({
+    return res.json({
       code: "error",
       message: "Invalid OTP"
     });
-    return;
   }
 
-  const token = jwt.sign({
-    id: existingOtp.id,
-    email: existingOtp.email
+  // LẤY ACCOUNT TƯƠNG ỨNG
+  const existingAccount = await AccountAdmin.findOne({ email: email, status: "active" });
+  if (!existingAccount) {
+    return res.json({
+      code: "error",
+      message: "Account not found or not active"
+    });
   }
-  , "MUONBIETTHONGTINCONLAUNHACUNG", {
-    expiresIn: "1d"// Token valid for 14 days or 1 day
-  });
 
-  //Save token to cookie
+  const token = jwt.sign(
+    {
+      id: existingAccount.id,
+      email: existingAccount.email
+    },
+    "MUONBIETTHONGTINCONLAUNHACUNG",
+    {
+      expiresIn: "1d"
+    }
+  );
+
   res.cookie("token", token, {
-    maxAge: 24 * 60 * 60 * 1000, //14 days or 1 day
-    httpOnly: true, // Just only allow cookie access by server
-    sameSite: "strict", // Not allow cross-site cookie
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    sameSite: "strict",
   });
-  
-  res.json({
+
+  // (tuỳ chọn) xoá OTP sau khi dùng
+  await ForgotPassword.deleteOne({ _id: existingOtp._id });
+
+  return res.json({
     code: "success",
     message: "OTP is valid"
   });
+}
+
+module.exports.resetPasswordPagePost = async (req, res) => {
+  const { password } = req.body;
+
+  //Hash password before saving to database
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await AccountAdmin.updateOne(
+    { _id: req.account.id },
+    { password: hashedPassword }
+  );
+
+  res.json({ code: "success", message: "Password has been reset successfully" });
+
+  console.log(password);
+  console.log(req.account);
 }
 
 //qquoccuongpham434@gmail.com

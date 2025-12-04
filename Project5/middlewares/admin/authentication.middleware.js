@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const AccountAdmin = require('../../models/account-admin.model').AccountAdmin;
 
 module.exports.verifyToken = async (req, res, next) => {
-    try {
+    try {   
         const token = req.cookies.token;
         if (!token) {
             return res.redirect(`/${pathAdmin}/account/login`);
@@ -15,11 +15,14 @@ module.exports.verifyToken = async (req, res, next) => {
             email: email,
             status: "active"
         });
-
+        
         if (!existingAccount) {
             res.clearCookie('token');
             return res.redirect(`/${pathAdmin}/account/login`);
         }
+
+        req.account=existingAccount;
+
         next();
 
     } catch (err) {
@@ -27,7 +30,4 @@ module.exports.verifyToken = async (req, res, next) => {
         res.clearCookie('token');
         return  res.redirect(`/${pathAdmin}/account/login`);
     }
-
-
-
 }

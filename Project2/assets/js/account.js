@@ -99,6 +99,7 @@ if(registerForm){
         }
     ])
     .onSuccess((event)=>{
+        
          const email=event.target.email.value;
          const Password=event.target.password.value;
          const fullname=event.target.fullName.value;

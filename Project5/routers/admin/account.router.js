@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const accountController = require('../../controllers/admin/account.controller');
 const accountValidate = require('../../validates/admin/account.validate');
+const authenMiddleware = require('../../middlewares/admin/authentication.middleware');
 
 router.get('/login', accountController.getAccountPage);
 
@@ -21,6 +22,11 @@ router.get('/otp-password', accountController.otpPasswordPage);
 router.post('/otp-password', accountValidate.otpPasswordPagePost, accountController.otpPasswordPagePost);
 
 router.get('/reset-password', accountController.resetPasswordPage);
+
+router.post('/reset-password',
+     authenMiddleware.verifyToken,
+     accountValidate.resetPasswordPagePost, 
+     accountController.resetPasswordPagePost);
 
 router.get('/logout', accountController.logoutAccountPage);
 
