@@ -70,7 +70,7 @@ const registerForm = document.querySelector('#registerForm');
 if (registerForm) {
     const validator = new JustValidate('#registerForm');
     validator
-        .addField('#fullName', [
+        .addField('#fullname', [
             {
                 rule: 'required',
                 errorMessage: 'Full Name is required'
@@ -128,7 +128,7 @@ if (registerForm) {
         .onSuccess((event) => {
             const email = event.target.email.value;
             const Password = event.target.password.value;
-            const fullname = event.target.fullName.value;
+            const fullname = event.target.fullname.value;
 
             const dataFinal = {
                 fullname: fullname,

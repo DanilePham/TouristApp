@@ -92,6 +92,7 @@ module.exports.registerAccountPagePost = async (req, res) => {
   //Hash password before saving to database
   req.body.password = await bcrypt.hash(req.body.password, 10);
 
+  console.log('Register data:');
   console.log(req.body);
 
   const newAccount = new AccountAdmin(req.body);

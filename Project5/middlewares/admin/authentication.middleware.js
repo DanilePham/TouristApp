@@ -15,13 +15,15 @@ module.exports.verifyToken = async (req, res, next) => {
             email: email,
             status: "active"
         });
-        
+
         if (!existingAccount) {
             res.clearCookie('token');
             return res.redirect(`/${pathAdmin}/account/login`);
         }
 
         req.account=existingAccount;
+
+        res.locals.account=existingAccount; // Make account info available in views
 
         next();
 
