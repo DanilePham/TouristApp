@@ -1,3 +1,4 @@
+// const { notify } = require("../../routers/client/tour.router");
 
 const initTinyMCE = (selector) => {
     tinymce.init({
@@ -159,6 +160,7 @@ if (categoryCreateFrom) {
             }
         ])
         .onSuccess((event) => {
+            event.preventDefault();
             const name = event.target.nameDM.value;
             const parent = event.target.parent.value;
             const position = event.target.position.value;
@@ -168,7 +170,27 @@ if (categoryCreateFrom) {
             console.log(filePond);
             console.log(filePond.avatar.getFile().file);
 
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("parent", parent);
+            formData.append("position", position);
+            formData.append("status", status);
+            formData.append("description", des);
+            formData.append("avatar", avatar);
 
+            fetch(`/${pathAdmin}/categories/create`, {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === "error") {    
+                        notify.error(data.message);
+                    }
+                    if (data.code === "success") {
+                        notify.success(data.message);
+                    }
+                });
         });
 }
 //end category form validate
