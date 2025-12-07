@@ -9,8 +9,9 @@ module.exports.createCategory = async (req, res) => {
 }
 
 module.exports.createPost = async (req, res) => {
+    console.log("Received form data:", req.file);
     if (req.file) {
-
+        req.body.avatar = req.file.path;
     } else {
      req.body.avatar = "" ;
     }
@@ -25,7 +26,9 @@ module.exports.createPost = async (req, res) => {
     req.body.createdBy=req.account.id;
 
     const newCategory = new CategoryModel(req.body);
-    await newCategory.save();
+    await newCategory.save();       
+
+    console.log("New category created:", newCategory);
 
     res.json({
         code: "success",
