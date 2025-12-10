@@ -153,12 +153,12 @@ console.log(categoryCreateFrom);
 if (categoryCreateFrom) {
     const validator = new JustValidate('#category-create-form');
     validator
-        .addField("#nameDM", [
-            {
-                rule: 'required',
-                errorMessage: 'Vui lòng nhập tên danh mục',
-            }
-        ])
+        // .addField("#nameDM", [
+        //     {
+        //         rule: 'required',
+        //         errorMessage: 'Vui lòng nhập tên danh mục',
+        //     }
+        // ])
         .onSuccess((event) => {
             event.preventDefault();
             const name = event.target.nameDM.value;
@@ -167,9 +167,7 @@ if (categoryCreateFrom) {
             const status = event.target.status.value;
             const avatar = filePond.avatar.getFile()?.file;
             const des = tinymce.get("description").getContent();
-            console.log(filePond);
-            console.log(filePond.avatar.getFile().file);
-
+            
             const formData = new FormData();
             formData.append("name", name);
             formData.append("parent", parent);
@@ -184,7 +182,7 @@ if (categoryCreateFrom) {
             })
                 .then(res => res.json())
                 .then(data => {
-                    if (data.code === "error") {    
+                    if (data.code === "error") {
                         notify.error(data.message);
                     }
                     if (data.code === "success") {
@@ -200,16 +198,16 @@ if (categoryCreateFrom) {
 // -------------------------------------------------------------------//
 
 //Sider
-const sider= document.querySelector('.sider');
-if(sider){
+const sider = document.querySelector('.sider');
+if (sider) {
     const pathnameCurrent = window.location.pathname;
-    const menuLists=sider.querySelectorAll("a");
-    const pathNameCurrentSplit= pathnameCurrent.split('/');
+    const menuLists = sider.querySelectorAll("a");
+    const pathNameCurrentSplit = pathnameCurrent.split('/');
     menuLists.forEach(item => {
-       const pathnameItem=item.getAttribute('href');
-       const pathNameSplit= pathnameItem.split('/');
-       if(pathNameCurrentSplit[1] === pathNameSplit[1] && pathNameCurrentSplit[2] === pathNameSplit[2]){
-           item.classList.add('active');
-       }
+        const pathnameItem = item.getAttribute('href');
+        const pathNameSplit = pathnameItem.split('/');
+        if (pathNameCurrentSplit[1] === pathNameSplit[1] && pathNameCurrentSplit[2] === pathNameSplit[2]) {
+            item.classList.add('active');
+        }
     })
 }
