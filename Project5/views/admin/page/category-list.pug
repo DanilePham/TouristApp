@@ -63,48 +63,37 @@ block main
             th.text-left Cập nhật bởi
             th.text-left Hành động
         tbody 
-          tr 
-            td.text-left
-              +checkbox-30("", "")
-            td.text-left Danh mục 1
-            td.text-center
-              img(src="/admin/assets/images/tour1.png" class="inner-avatar")
-            td.text-center 1
-            td.text-center
-              .tag.tag-orange Khởi tạo
-            td.text-left
-              div Lê Văn A
-              div.inner-small 16:30 - 20/10/2024
-            td.text-left
-              div Lê Văn A
-              div.inner-small 16:30 - 20/10/2024
-            td.text-left
-              .box-actions 
-                a(href="#" class="inner-edit")
-                  <i class="fa-solid fa-pen-to-square"></i>
-                a(href="#" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i>
-          tr 
-            td.text-left
-              +checkbox-30("", "")
-            td.text-left Danh mục 1
-            td.text-center
-              img(src="/admin/assets/images/tour1.png" class="inner-avatar")
-            td.text-center 1
-            td.text-center
-              .tag.tag-orange Khởi tạo
-            td.text-left
-              div Lê Văn A
-              div.inner-small 16:30 - 20/10/2024
-            td.text-left
-              div Lê Văn A
-              div.inner-small 16:30 - 20/10/2024
-            td.text-left
-              .box-actions 
-                a(href="#" class="inner-edit")
-                  <i class="fa-solid fa-pen-to-square"></i>
-                a(href="#" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i>
+          each item in categoryLi
+            tr 
+              td.text-left
+                +checkbox-30("", "")
+              td.text-left #{item.name}
+              td.text-center
+                img(src=item.avatar class="inner-avatar")
+              td.text-center #{item.position}
+              td.text-center
+                if item.status=="active"
+                  .tag.tag-green Hoạt động
+                else if item.status=="inactive"
+                  .tag.tag-red Tạm dừng
+                
+              
+              td.text-left
+                if(item.createdByWho)
+                  div #{item.createdByWho}
+                  div.inner-small #{item.createdAtFormat}
+                
+              td.text-leff
+                if(item.updatedByWho)
+                  div #{item.updatedByWho}
+                  div.inner-small #{item.updatedAtFormat}
+                
+              td.text-left
+                .box-actions 
+                  a(href="#" class="inner-edit")
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  a(href="#" class="inner-remove")
+                    <i class="fa-solid fa-trash-can"></i>
   //- End Section 6
 
   //- Section 7
