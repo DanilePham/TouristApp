@@ -70,3 +70,28 @@ module.exports.createPost = async (req, res) => {
         message: "Category created successfully"
     });
 }
+
+module.exports.editCategory = async (req, res) => {
+    const id = req.params.id;
+    
+    console.log("Editing category with ID:", id);
+    const categoryDetail = await CategoryModel.findOne({
+        _id: id,
+        deleted: false
+    });
+
+    if (!categoryDetail) {
+       res.redirect(`/${pathAdmin}/categories/list`);
+       return;
+    }
+
+
+
+     const categoryList = await CategoryModel.find({
+        deleted: false
+    })
+
+    const categoryTree = buildCategoryTree(categoryList);
+
+    res.render('admin/page/category-edit', { pagetitle: "Edit Category", categoryList: categoryTree, categoryDetail: categoryDetail });
+}

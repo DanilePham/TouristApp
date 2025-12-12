@@ -12,6 +12,8 @@ router.get('/create', categoryController.createCategory);
 
 router.post('/create', upload.single('avatar'), categoryValidate.createPost, categoryController.createPost);
 
+router.get('/edit/:id', categoryController.editCategory);
+
 
 
 module.exports = router;

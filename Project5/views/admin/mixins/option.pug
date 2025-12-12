@@ -1,6 +1,11 @@
-mixin option(list,level=0)
-    - const prefix=Array(level).fill('-- ').join(''); 
-    each item in list
-      option(value=item._id) #{prefix} #{item.name}
-      if(item.children && item.children.length > 0)
-        +option(item.children, level + 1)
+mixin option(list, level = 0, parent = "")
+  - const prefix = Array(level).fill('--').join('');
+  each item in list
+    - const itemId = item._id ? String(item._id) : (item.id ? String(item.id) : "");
+    - const parentId = parent ? String(parent) : "";
+    option(
+      value=(item._id || item.id)
+      selected=(itemId === parentId)
+    ) #{prefix} #{item.name}
+    if (item.children && item.children.length > 0)
+      +option(item.children, level + 1, parent)

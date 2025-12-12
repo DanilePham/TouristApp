@@ -99,10 +99,20 @@ if (listFilepondImage.length > 0) {
     FilePond.registerPlugin(FilePondPluginFileValidateType);
 
     listFilepondImage.forEach(filepondImage => {
+        const imageDefault = filepondImage.getAttribute("image-default");
+        let files=null;
+        if(imageDefault){
+            files=[
+                {
+                    source: imageDefault
+                }
+            ]
+        }
         console.log(filepondImage.name);
         filePond[filepondImage.name] = FilePond.create(filepondImage, {
             labelIdle: "+",
             acceptedFileTypes: ['image/*'],
+            files: files
         });
     });
 }
