@@ -7,15 +7,17 @@ block main
 
   .section-8 
     form(id="category-edit-form")
+      .inner-group(style="display:none;") 
+        label.inner-label(for="id") ID *
+        input(type="text" id="id" name="id" value=categoryDetail.id)
       .inner-group 
         label.inner-label(for="name") Tên danh mục *
-        input(type="text" id="name" name="name" value=categoryDetail.name)  
+        input(type="text" id="name" name="name" value=categoryDetail.name)       
       .inner-group 
         label.inner-label(for="parent") Danh mục cha
         select(id="parent" name="parent")
           option(value="") -- Chọn danh mục --
           +option(categoryList,0, categoryDetail.parent)
-
       .inner-group 
         label.inner-label(for="position") Vị trí
         input(type="number" id="position" name="position" value=categoryDetail.position)

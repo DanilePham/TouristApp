@@ -197,6 +197,7 @@ if (categoryCreateFrom) {
                     }
                     if (data.code === "success") {
                         notify.success(data.message);
+                        window.locattion.reload(); //reload page
                     }
                 });
         });
@@ -204,6 +205,54 @@ if (categoryCreateFrom) {
 //end category form validate
 
 // -------------------------------------------------------------------//
+
+
+//Category form validate
+const categoryEditForm = document.querySelector("#category-edit-form");
+console.log(categoryCreateFrom);
+if (categoryEditForm) {
+    const validator = new JustValidate('#category-edit-form');
+    validator
+        // .addField("#nameDM", [
+        //     {
+        //         rule: 'required',
+        //         errorMessage: 'Vui lòng nhập tên danh mục',
+        //     }
+        // ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const id= event.target.id.value;
+            const name = event.target.name.value;
+            const parent = event.target.parent.value;
+            const position = event.target.position.value;
+            const status = event.target.status.value;
+            const avatar = filePond.avatar.getFile()?.file;
+            const des = tinymce.get("description").getContent();
+            
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("parent", parent);
+            formData.append("position", position);
+            formData.append("status", status);
+            formData.append("description", des);
+            formData.append("avatar", avatar);
+
+            fetch(`/${pathAdmin}/categories/edit/${id}`, {
+                method: "PATCH",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === "error") {
+                        notify.error(data.message);
+                    }
+                    if (data.code === "success") {
+                        notify.success(data.message);
+                    }
+                });
+        });
+}
+//end category edit form validate
 
 // -------------------------------------------------------------------//
 
