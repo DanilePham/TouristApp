@@ -4,9 +4,16 @@ const { AccountAdmin } = require("../../models/account-admin.model")
 const moment = require('moment');
 
 module.exports.listCategories = async (req, res) => {
-    const categoryLi = await CategoryModel.find({
-        deleted: false
-    }).sort({ position: "desc" })
+
+    const find ={
+        deleted: false,
+    }
+
+    if (req.query.status) {
+        find.status = req.query.status;
+    }
+
+    const categoryLi = await CategoryModel.find(find).sort({ position: "desc" })
 
     console.log("Category List:", categoryLi);
     for (const i of categoryLi) {
