@@ -1035,21 +1035,25 @@ textarea {
   border: 1px solid #D5D5D5;
   display: inline-flex;
   border-radius: 8px;
+  overflow:hidden;
 }
 
-.box-actions a {
+.box-actions a, .box-actions button {
   padding: 8.5px 16.5px;
   display: inline-block;
   font-size: 15px;
   color: rgba(0, 0, 0, 0.6);
+  border: 0;
   border-right: 1px solid #D5D5D5;
+  cursor:pointer;
+  background-color: transparent;
 }
 
 .box-actions .inner-remove {
   color: #EF3826;
 }
 
-.box-actions a:last-child {
+.box-actions a:last-child, .box-actions button:last-child {
   border-right: 0;
 }
 

@@ -149,3 +149,46 @@ module.exports.editPostPatch = async (req, res) => {
     }
 
 }
+
+module.exports.deletePostPatch = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const categoryDetail = await CategoryModel.findOne({
+            _id: id,
+            deleted: false
+        });
+
+        if (!categoryDetail) {
+            res.json({
+                code: "error",
+                message: "Category not found"
+            })
+            return;
+        }
+
+        // req.body.updatedBy = req.account.id;
+
+        await CategoryModel.updateOne({
+            _id: id,
+            deleted: false
+        }, {
+            deleted: true,
+            deletedBy: req.account._id,
+            deletedAt: Date.now()
+        });
+
+        res.json({
+            code: "success",
+            message: "Category deleted successfully"
+        });
+
+
+
+    } catch (error) {
+        res.json({
+            code: "error",
+            message: "An error occurred while deleting the category"
+        });
+    }
+
+} 

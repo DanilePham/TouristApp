@@ -100,9 +100,9 @@ if (listFilepondImage.length > 0) {
 
     listFilepondImage.forEach(filepondImage => {
         const imageDefault = filepondImage.getAttribute("image-default");
-        let files=null;
-        if(imageDefault){
-            files=[
+        let files = null;
+        if (imageDefault) {
+            files = [
                 {
                     source: imageDefault
                 }
@@ -177,7 +177,7 @@ if (categoryCreateFrom) {
             const status = event.target.status.value;
             const avatar = filePond.avatar.getFile()?.file;
             const des = tinymce.get("description").getContent();
-            
+
             const formData = new FormData();
             formData.append("name", name);
             formData.append("parent", parent);
@@ -221,14 +221,14 @@ if (categoryEditForm) {
         // ])
         .onSuccess((event) => {
             event.preventDefault();
-            const id= event.target.id.value;
+            const id = event.target.id.value;
             const name = event.target.name.value;
             const parent = event.target.parent.value;
             const position = event.target.position.value;
             const status = event.target.status.value;
             const avatar = filePond.avatar.getFile()?.file;
             const des = tinymce.get("description").getContent();
-            
+
             const formData = new FormData();
             formData.append("name", name);
             formData.append("parent", parent);
@@ -269,4 +269,30 @@ if (sider) {
             item.classList.add('active');
         }
     })
+}
+//end sider
+
+// -------------------------------------------------------------------//
+//Delete button
+const deletebuttons = document.querySelectorAll("[button-delete]");
+if (deletebuttons.length > 0) {
+    deletebuttons.forEach(button => {
+        button.addEventListener('click', () => {
+            console.log("Delete clicked");
+            const dataApi = button.getAttribute("data-api");
+            fetch(dataApi, {
+                method: "PATCH"
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === "error") {
+                        notify.error(data.message);
+                    }
+                    if (data.code === "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload();
+                    }
+                });
+        })
+    });
 }
