@@ -17,6 +17,17 @@ module.exports.listCategories = async (req, res) => {
         find.createdBy = req.query.createdBy;
     }
 
+    const createdAt={};
+    if(req.query.startDate){
+        createdAt.$gte = moment(req.query.startDate).toDate();
+        find.createdAt = createdAt;
+    }
+
+    if(req.query.endDate){
+        createdAt.$lte = moment(req.query.endDate).endOf('day').toDate();
+        find.createdAt = createdAt;
+    }
+
     const categoryLi = await CategoryModel.find(find).sort({ position: "desc" })
 
     console.log("Category List:", categoryLi);

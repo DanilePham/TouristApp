@@ -351,4 +351,52 @@ if (filterCreatedBy) {
 //End filter-createdBy
 // -------------------------------------------------------------------//
 
+//filter-date start
+const filterStartDate = document.querySelector("[filter-startDate]");
+if (filterStartDate) {
+    const url = new URL(window.location.href);
 
+    filterStartDate.addEventListener('change', () => {
+        const selectedValue = filterStartDate.value;
+        if (selectedValue) {
+            url.searchParams.set('startDate', selectedValue);
+        }else{
+            url.searchParams.delete('startDate');
+        }
+        window.location.href =url.href;
+    })
+
+    //express selected default
+    const valueCurent = url.searchParams.get('startDate');
+    if (valueCurent) {
+        filterStartDate.value = valueCurent;
+    }
+}
+//End filter-date start
+
+// -------------------------------------------------------------------//
+
+//filter-date end
+const filterEndDate = document.querySelector("[filter-endDate]");
+if (filterEndDate) {
+    const url = new URL(window.location.href);
+
+    filterEndDate.addEventListener('change', () => {
+        const selectedValue = filterEndDate.value;
+        if (selectedValue) {
+            url.searchParams.set('endDate', selectedValue);
+        }else{
+            url.searchParams.delete('endDate');
+        }
+        window.location.href=url.href;
+    })
+
+    //express selected default      
+    const valueCurent = url.searchParams.get('endDate');
+    if (valueCurent) {
+        filterEndDate.value = valueCurent;
+    }
+}
+//End filter-date end
+
+// -------------------------------------------------------------------//
