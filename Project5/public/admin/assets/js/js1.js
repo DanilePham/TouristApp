@@ -400,3 +400,16 @@ if (filterEndDate) {
 //End filter-date end
 
 // -------------------------------------------------------------------//
+
+//Reset filter
+const filterReset = document.querySelector("[filter-reset]");
+if (filterReset) {
+    const url = new URL(window.location.href);
+    filterReset.addEventListener('click', () => {
+        url.searchParams.delete('status');
+        url.searchParams.delete('createdBy');
+        url.searchParams.delete('startDate');
+        url.searchParams.delete('endDate');
+        window.location.href =url.href; 
+    })
+}
