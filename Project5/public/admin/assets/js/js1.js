@@ -323,3 +323,32 @@ if (filterStatus) {
         filterStatus.value = currentValue;
     }
 }
+//End filter-status
+
+// -------------------------------------------------------------------//
+
+//filter-createdBy
+const filterCreatedBy = document.querySelector("[filter-createdBy]");
+if (filterCreatedBy) {
+    const url = new URL(window.location.href);
+
+    filterCreatedBy.addEventListener('change', () => {
+        const selectedValue = filterCreatedBy.value;
+        if (selectedValue) {
+            url.searchParams.set('createdBy', selectedValue);
+        }else{
+            url.searchParams.delete('createdBy');
+        }
+        window.location.href =url.href;
+    })
+
+    //express selected default
+    const valueCurent = url.searchParams.get('createdBy');
+    if (valueCurent) {
+        filterCreatedBy.value = valueCurent;
+    }
+}
+//End filter-createdBy
+// -------------------------------------------------------------------//
+
+

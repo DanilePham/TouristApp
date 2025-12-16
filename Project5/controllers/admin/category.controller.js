@@ -13,6 +13,10 @@ module.exports.listCategories = async (req, res) => {
         find.status = req.query.status;
     }
 
+    if(req.query.createdBy){
+        find.createdBy = req.query.createdBy;
+    }
+
     const categoryLi = await CategoryModel.find(find).sort({ position: "desc" })
 
     console.log("Category List:", categoryLi);
@@ -37,7 +41,11 @@ module.exports.listCategories = async (req, res) => {
 
     }
 
-    res.render('admin/page/category-list', { pagetitle: "Category List", categoryLi })
+    //Take management account from data base
+    const accountAdminList= await AccountAdmin.find({}).select("id fullname");
+
+
+    res.render('admin/page/category-list', { pagetitle: "Category List", categoryLi, accountAdminList: accountAdminList })
 }
 
 module.exports.createCategory = async (req, res) => {
