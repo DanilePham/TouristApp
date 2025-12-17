@@ -5,7 +5,7 @@ const moment = require('moment');
 
 module.exports.listCategories = async (req, res) => {
 
-    const find ={
+    const find = {
         deleted: false,
     }
 
@@ -13,17 +13,17 @@ module.exports.listCategories = async (req, res) => {
         find.status = req.query.status;
     }
 
-    if(req.query.createdBy){
+    if (req.query.createdBy) {
         find.createdBy = req.query.createdBy;
     }
 
-    const createdAt={};
-    if(req.query.startDate){
+    const createdAt = {};
+    if (req.query.startDate) {
         createdAt.$gte = moment(req.query.startDate).toDate();
         find.createdAt = createdAt;
     }
 
-    if(req.query.endDate){
+    if (req.query.endDate) {
         createdAt.$lte = moment(req.query.endDate).endOf('day').toDate();
         find.createdAt = createdAt;
     }
@@ -53,7 +53,7 @@ module.exports.listCategories = async (req, res) => {
     }
 
     //Take management account from data base
-    const accountAdminList= await AccountAdmin.find({}).select("id fullname");
+    const accountAdminList = await AccountAdmin.find({}).select("id fullname");
 
 
     res.render('admin/page/category-list', { pagetitle: "Category List", categoryLi, accountAdminList: accountAdminList })
@@ -216,5 +216,60 @@ module.exports.deletePostPatch = async (req, res) => {
             message: "An error occurred while deleting the category"
         });
     }
+}
 
-} 
+module.exports.changeMultiPatch = async (req, res) => {
+    try {
+        const { ids, action } = req.body;
+        switch (action) {
+            case 'active':
+            case 'inactive':
+                await CategoryModel.updateMany(
+                    {
+                        _id: { $in: ids },
+                        deleted: false
+                    },
+                    {
+                        status: action,
+                        updatedBy: req.account._id
+                    }
+                )
+                res.json({
+                    code: "success",
+                    message: "Multi status change functionality is under development"
+                });
+                break;
+
+            case 'delete':
+                await CategoryModel.updateMany(
+                    {
+                        _id: { $in: ids },
+                        deleted: false
+                    },
+                    {
+                        deleted: true,
+                        deletedBy: req.account._id,
+                        deletedAt: Date.now()
+                    }
+                )
+                res.json({
+                    code: "success",
+                    message: "Multi delete functionality is under development"
+                });
+                break;
+
+            default:
+                res.json({
+                    code: "error",
+                    message: "Invalid action"
+                });
+                return;
+        }
+    } catch (err) {
+        res.json({
+            code: "error",
+            message: "An error occurred while processing the request"
+        }); 
+    }
+
+}

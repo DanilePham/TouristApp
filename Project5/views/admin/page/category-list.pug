@@ -31,13 +31,13 @@ block main
   //- Section 5
   .section-5
     .inner-wrap
-      .inner-change-status
+      .inner-change-status(change-multi data-api=`/${pathAdmin}/categories/change-multi-status`)
         .inner-item
           select
             option(value="") -- Hành động --
-            option(value="") Hoạt động
-            option(value="") Dừng hoạt động
-            option(value="") Xóa
+            option(value="active") Hoạt động
+            option(value="inactive") Dừng hoạt động
+            option(value="delete") Xóa
         .inner-item
           button Áp dụng
       .inner-search
@@ -54,7 +54,7 @@ block main
         thead 
           tr 
             th.text-left
-              +checkbox-30("", "")
+              +checkbox-30("check-all","check-all")
             th.text-left Tên danh mục
             th.text-center Ảnh đại diện
             th.text-center Vị trí
@@ -66,7 +66,7 @@ block main
           each item in categoryLi
             tr 
               td.text-left
-                +checkbox-30("", "")
+                +checkbox-30("check-item", "check-item", item._id)
               td.text-left #{item.name}
               td.text-center
                 img(src=item.avatar class="inner-avatar")

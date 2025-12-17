@@ -311,10 +311,10 @@ if (filterStatus) {
         const selectedValue = filterStatus.value;
         if (selectedValue) {
             url.searchParams.set('status', selectedValue);
-        }else{
+        } else {
             url.searchParams.delete('status');
         }
-        window.location.href =url.href;
+        window.location.href = url.href;
     })
 
     //express selected default
@@ -336,10 +336,10 @@ if (filterCreatedBy) {
         const selectedValue = filterCreatedBy.value;
         if (selectedValue) {
             url.searchParams.set('createdBy', selectedValue);
-        }else{
+        } else {
             url.searchParams.delete('createdBy');
         }
-        window.location.href =url.href;
+        window.location.href = url.href;
     })
 
     //express selected default
@@ -360,10 +360,10 @@ if (filterStartDate) {
         const selectedValue = filterStartDate.value;
         if (selectedValue) {
             url.searchParams.set('startDate', selectedValue);
-        }else{
+        } else {
             url.searchParams.delete('startDate');
         }
-        window.location.href =url.href;
+        window.location.href = url.href;
     })
 
     //express selected default
@@ -385,10 +385,10 @@ if (filterEndDate) {
         const selectedValue = filterEndDate.value;
         if (selectedValue) {
             url.searchParams.set('endDate', selectedValue);
-        }else{
+        } else {
             url.searchParams.delete('endDate');
         }
-        window.location.href=url.href;
+        window.location.href = url.href;
     })
 
     //express selected default      
@@ -410,6 +410,76 @@ if (filterReset) {
         url.searchParams.delete('createdBy');
         url.searchParams.delete('startDate');
         url.searchParams.delete('endDate');
-        window.location.href =url.href; 
+        window.location.href = url.href;
     })
 }
+//End Reset filter
+
+// -------------------------------------------------------------------//
+
+//Check all
+const checkAllBox = document.querySelector(`input[name=check-all]`);
+if (checkAllBox) {
+    checkAllBox.addEventListener('click', () => {
+        console.log(checkAllBox.checked);
+        const listCheckItem = document.querySelectorAll(`input[name=check-item]`);
+        listCheckItem.forEach(item => {
+            item.checked = checkAllBox.checked;
+        });
+    })
+}
+//end Check all
+
+// -------------------------------------------------------------------//
+
+//Change multi status
+const changeMultiStatus = document.querySelector('.inner-change-status[change-multi]');
+if (changeMultiStatus) {
+    const button = changeMultiStatus.querySelector('button');
+    const select = changeMultiStatus.querySelector('select');
+    const dataApi = changeMultiStatus.getAttribute('data-api');
+
+    button.addEventListener('click', () => {
+        const listCheckItem = document.querySelectorAll(`input[name=check-item]:checked`);
+        const listIds=[];
+        listCheckItem.forEach(item=>{
+            listIds.push(item.value);
+        });
+
+        const option=select.value;
+        if(listIds.length == 0){
+            notify.error("Vui long chon it nhat 1 mục.");
+            return; 
+        }
+        if(!option){
+            notify.error("Vui long chon 1 hành động.");
+            return; 
+        }
+
+        const dataFinal={
+            ids: listIds,
+            action: option 
+        };
+
+        fetch(dataApi,{
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataFinal)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.code == "error") {
+                    notify.error(data.message);
+                }
+                if (data.code == "success") {
+                    drawNotify(data.code, data.message);
+                    window.location.reload();
+                }
+            }); 
+    })
+}
+//End Change multi status
+
+// -------------------------------------------------------------------//
