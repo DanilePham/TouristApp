@@ -441,27 +441,27 @@ if (changeMultiStatus) {
 
     button.addEventListener('click', () => {
         const listCheckItem = document.querySelectorAll(`input[name=check-item]:checked`);
-        const listIds=[];
-        listCheckItem.forEach(item=>{
+        const listIds = [];
+        listCheckItem.forEach(item => {
             listIds.push(item.value);
         });
 
-        const option=select.value;
-        if(listIds.length == 0){
+        const option = select.value;
+        if (listIds.length == 0) {
             notify.error("Vui long chon it nhat 1 mục.");
-            return; 
+            return;
         }
-        if(!option){
+        if (!option) {
             notify.error("Vui long chon 1 hành động.");
-            return; 
+            return;
         }
 
-        const dataFinal={
+        const dataFinal = {
             ids: listIds,
-            action: option 
+            action: option
         };
 
-        fetch(dataApi,{
+        fetch(dataApi, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
@@ -483,3 +483,30 @@ if (changeMultiStatus) {
 //End Change multi status
 
 // -------------------------------------------------------------------//
+//Search item
+const searchItemInput = document.querySelector('[search-item]');
+if (searchItemInput) {
+    const url = new URL(window.location.href);
+
+    searchItemInput.addEventListener('keyup', (e) => {
+        if (e.code == "Enter") {
+            const value = searchItemInput.value;
+            if (value) {
+                url.searchParams.set('keyword', value);
+            }
+            else{
+                url.searchParams.delete('keyword');
+            }
+            window.location.href = url.href;
+        }
+    });
+
+    //express selected default
+    const valueCurrent=url.searchParams.get('keyword');
+    if(valueCurrent){
+        searchItemInput.value=valueCurrent;
+    }
+}
+
+
+

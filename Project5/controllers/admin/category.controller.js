@@ -2,6 +2,7 @@ const { buildCategoryTree } = require("../../helpers/category.helper")
 const { CategoryModel } = require("../../models/categories.model")
 const { AccountAdmin } = require("../../models/account-admin.model")
 const moment = require('moment');
+const slugify = require('slugify');
 
 module.exports.listCategories = async (req, res) => {
 
@@ -24,10 +25,17 @@ module.exports.listCategories = async (req, res) => {
     }
 
     if (req.query.endDate) {
-        createdAt.$lte = moment(req.query.endDate).endOf('day').toDate();
+        createdAt.$lte = moment(req.query.endDate).endOf('day').toDate(); 
         find.createdAt = createdAt;
     }
 
+    if (req.query.keyword) {
+        let regex=req.query.keyword.trim();
+        regex=regex.replace(/\s\s+/g, " ");
+        regex = slugify(regex, { lower: true, strict: true });
+        regex = new RegExp(regex, "i");
+        find.slugabc = regex;
+    }
     const categoryLi = await CategoryModel.find(find).sort({ position: "desc" })
 
     console.log("Category List:", categoryLi);
