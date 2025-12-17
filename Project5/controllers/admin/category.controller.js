@@ -25,18 +25,37 @@ module.exports.listCategories = async (req, res) => {
     }
 
     if (req.query.endDate) {
-        createdAt.$lte = moment(req.query.endDate).endOf('day').toDate(); 
+        createdAt.$lte = moment(req.query.endDate).endOf('day').toDate();
         find.createdAt = createdAt;
     }
 
     if (req.query.keyword) {
-        let regex=req.query.keyword.trim();
-        regex=regex.replace(/\s\s+/g, " ");
+        let regex = req.query.keyword.trim();
+        regex = regex.replace(/\s\s+/g, " ");
         regex = slugify(regex, { lower: true, strict: true });
         regex = new RegExp(regex, "i");
         find.slugabc = regex;
     }
-    const categoryLi = await CategoryModel.find(find).sort({ position: "desc" })
+
+    //Pagination
+    const limitItem = 3;
+    let page = 1;
+    if (req.query.page) {
+        page = parseInt(req.query.page);
+    }
+    const skip = (page - 1) * limitItem;
+
+    const totalItem = await CategoryModel.countDocuments(find);
+    const totalPage = Math.ceil(totalItem / limitItem);
+    const pagination = {
+        totalPage:totalPage,
+        totalItem:totalItem,
+        skip:skip
+    }
+     //end pagination
+
+    const categoryLi = await CategoryModel.find(find).sort({ position: "desc" }).skip(skip).limit(limitItem);
+
 
     console.log("Category List:", categoryLi);
     for (const i of categoryLi) {
@@ -64,7 +83,7 @@ module.exports.listCategories = async (req, res) => {
     const accountAdminList = await AccountAdmin.find({}).select("id fullname");
 
 
-    res.render('admin/page/category-list', { pagetitle: "Category List", categoryLi, accountAdminList: accountAdminList })
+    res.render('admin/page/category-list', { pagetitle: "Category List", categoryLi, accountAdminList: accountAdminList, pagination: pagination });
 }
 
 module.exports.createCategory = async (req, res) => {
@@ -277,7 +296,7 @@ module.exports.changeMultiPatch = async (req, res) => {
         res.json({
             code: "error",
             message: "An error occurred while processing the request"
-        }); 
+        });
     }
 
 }

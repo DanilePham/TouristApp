@@ -508,5 +508,31 @@ if (searchItemInput) {
     }
 }
 
+//End Search item
 
+// -------------------------------------------------------------------//    
+//Pagination
+const boxPagination = document.querySelector('[box-pagination]');
+if(boxPagination){
+    const url=new URL(window.location.href);
+
+    boxPagination.addEventListener('change',()=>{
+        const page=boxPagination.value;
+        if(page){
+            url.searchParams.set('page',page);
+        }else{
+            url.searchParams.delete('page');
+        }
+        window.location.href=url.href;
+    });
+
+    //express selected default
+    const pageCurrent=url.searchParams.get('page');
+    if(pageCurrent){
+        boxPagination.value=pageCurrent;
+    }
+}
+//End Pagination
+
+// -------------------------------------------------------------------//    
 
