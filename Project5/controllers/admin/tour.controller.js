@@ -100,7 +100,7 @@ module.exports.createTour = async (req, res) => {
 
 module.exports.trashTours = async (req, res) => {
 
-     const find = {
+    const find = {
         deleted: true
     };
 
@@ -404,3 +404,41 @@ module.exports.undoPostPatch = async (req, res) => {
     }
 }
 
+module.exports.destroyDelete = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const tourDetail = await Tour.findOne({
+            _id: id,
+            deleted: true
+        });
+
+        if (!tourDetail) {
+            res.json({
+                code: "error",
+                message: "Tour not found"
+            })
+            return;
+        }
+
+        // req.body.updatedBy = req.account.id;
+
+        await Tour.deleteOne({
+            _id: id,
+            deleted: true
+        },);
+
+        res.json({
+            code: "success",
+            message: "Tour deleted successfully"
+        });
+
+
+
+    } catch (error) {
+        res.json({
+            code: "error",
+            message: "An error occurred while deleting the tour"
+        });
+    }
+
+}

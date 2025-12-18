@@ -103,7 +103,7 @@ block main
                 .box-actions
                   button(button-undo data-api=`/${pathAdmin}/tours/undo/${i._id}` class="inner-undo")
                     i.fa-solid.fa-rotate-left
-                  a(href="#" class="inner-remove")
+                  button(button-destroy data-api=`/${pathAdmin}/tours/destroy/${i._id}` class="inner-remove")
                     i.fa-solid.fa-trash-can
   //- End Section 6
 

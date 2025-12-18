@@ -325,6 +325,36 @@ if (undoButton.length > 0) {
 
 // -------------------------------------------------------------------//
 
+
+// -------------------------------------------------------------------//
+//button destroy
+const destroyButton = document.querySelectorAll("[button-destroy]");
+if (destroyButton.length > 0) {
+    destroyButton.forEach(button => {
+        button.addEventListener('click', () => {
+            console.log("Destroy clicked");
+            const dataApi = button.getAttribute("data-api");
+            fetch(dataApi, {
+                method: "delete"
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === "error") {
+                        notify.error(data.message);
+                    }
+                    if (data.code === "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload();
+                    }
+                });
+        })
+    });
+}
+//End button Undo
+
+
+// -------------------------------------------------------------------//
+
 //filter-status
 const filterStatus = document.querySelector("[filter-status]");
 if (filterStatus) {
