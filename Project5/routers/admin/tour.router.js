@@ -13,5 +13,10 @@ router.get('/trash', tourRouterController.trashTours);
 
 router.post('/create',upload.single('avatar') ,tourValidate.createPost ,tourRouterController.createTourss);
 
+router.patch('/change-multi-status', tourValidate.changeMultiPatch, tourRouterController.changeMultiPatch);
+
+router.get('/edit/:id', tourRouterController.editTour);
+
+router.patch('/edit/:id', upload.single('avatar'), tourValidate.createPost, tourRouterController.editPatch);
 
 module.exports = router;

@@ -56,8 +56,6 @@ module.exports.listCategories = async (req, res) => {
 
     const categoryLi = await CategoryModel.find(find).sort({ position: "desc" }).skip(skip).limit(limitItem);
 
-
-    console.log("Category List:", categoryLi);
     for (const i of categoryLi) {
         if (i.createdBy) {
             const infoaccount = await AccountAdmin.findOne({ _id: i.createdBy });

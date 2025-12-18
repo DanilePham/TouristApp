@@ -10,19 +10,19 @@ block main
       .inner-item.inner-label
         <i class="fa-solid fa-filter"></i> Bộ lọc
       .inner-item
-        select
+        select(filter-status)
           option(value="") Trạng thái
-          option(value="") Hoạt động
-          option(value="") Tạm dừng
+          option(value="active") Hoạt động
+          option(value="inactive") Tạm dừng
       .inner-item
-        select
+        select(filter-createdBy)
           option(value="") Người tạo
-          option(value="") Lê Văn A
-          option(value="") Lê Văn B
+          each i in accountAdminList
+            option(value=i._id) #{i.fullname}
       .inner-item.inner-date
-        input(type="date")
+        input(type="date" filter-startDate)
         span -
-        input(type="date")
+        input(type="date" filter-endDate)
       .inner-item
         select
           option(value="") Danh mục
@@ -35,25 +35,25 @@ block main
           option(value="") Từ 1tr đến 2tr
           option(value="") Từ 2tr đến 6tr
           option(value="") Trên 6tr
-      .inner-item.inner-reset
+      .inner-item.inner-reset(filter-reset)
         <i class="fa-solid fa-rotate-left"></i> Xóa bộ lọc
   //- End Section 4
 
   //- Section 5
   .section-5
     .inner-wrap
-      .inner-change-status
+      .inner-change-status(change-multi data-api=`/${pathAdmin}/tours/change-multi-status`)
         .inner-item
           select
             option(value="") -- Hành động --
-            option(value="") Hoạt động
-            option(value="") Dừng hoạt động
-            option(value="") Xóa
+            option(value="active") Hoạt động
+            option(value="inactive") Dừng hoạt động
+            option(value="delete") Xóa
         .inner-item
           button Áp dụng
       .inner-search
         <i class="fa-solid fa-magnifying-glass"></i>
-        input(type="text" placeholder="Tìm kiếm")
+        input(type="text" placeholder="Tìm kiếm" search-item)
       .inner-button-create
         a(href=`/${pathAdmin}/tours/create`) + Tạo mới
       .inner-button-trash
@@ -67,7 +67,7 @@ block main
         thead 
           tr 
             th.text-left
-              +checkbox-30("", "")
+              +checkbox-30("check-all","check-all")
             th.text-left Tên tour
             th.text-center Ảnh đại diện
             th.text-left Giá
@@ -78,35 +78,41 @@ block main
             th.text-left Cập nhật bởi
             th.text-left Hành động
         tbody 
-          tr 
-            td.text-left
-              +checkbox-30("", "")
-            td.text-left Tour Hạ Long
-            td.text-center
-              img(src="/admin/assets/images/tour1.png" class="inner-avatar")
-            td.text-left 
-              div NL: 1.900.000đ
-              div TE: 1.600.000đ
-              div EB: 1.000.000đ
-            td.text-left
-              div NL: 30
-              div TE: 20
-              div EB: 10
-            td.text-center 1
-            td.text-center
-              .tag.tag-orange Khởi tạo
-            td.text-left
-              div Lê Văn A
-              div.inner-small 16:30 - 20/10/2024
-            td.text-left
-              div Lê Văn A
-              div.inner-small 16:30 - 20/10/2024
-            td.text-left
-              .box-actions 
-                a(href="#" class="inner-edit")
-                  <i class="fa-solid fa-pen-to-square"></i>
-                a(href="#" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i>
+          each i in tourList
+            tr 
+              td.text-left
+                +checkbox-30("check-item", "check-item", i._id)
+              td.text-left #{i.name}
+              td.text-center
+                img(src=i.avatar class="inner-avatar")
+              td.text-left 
+                div NL: #{i.priceAdult.toLocaleString("vi-VN")}đ
+                div TE: #{i.priceChildren.toLocaleString("vi-VN")}đ
+                div EB: #{i.priceBaby.toLocaleString("vi-VN")}đ
+              td.text-left
+                div NL: #{i.stockAdult}
+                div TE: #{i.stockChildren}
+                div EB: #{i.stockBaby}
+              td.text-center #{i.position}
+              td.text-center
+                if i.status=="active"
+                  .tag.tag-green Hoạt động
+                else if i.status=="inactive"
+                  .tag.tag-red Tạm dừng
+              td.text-left
+                if(i.createdByWho)
+                  div #{i.createdByWho}
+                  div.inner-small #{i.createdAtFormat}
+                td.text-left
+                if(i.updatedByWho)
+                  div #{i.updatedByWho}
+                  div.inner-small #{i.updatedAtFormat}
+              td.text-left
+                .box-actions 
+                  a(href=`/${pathAdmin}/tours/edit/${i._id}` class="inner-edit")
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  button(class="inner-remove" button-delete data-api=`/${pathAdmin}/tours/delete/${i._id}`)
+                    <i class="fa-solid fa-trash-can"></i>
   //- End Section 6
 
   //- Section 7
