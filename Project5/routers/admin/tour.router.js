@@ -19,4 +19,7 @@ router.get('/edit/:id', tourRouterController.editTour);
 
 router.patch('/edit/:id', upload.single('avatar'), tourValidate.createPost, tourRouterController.editPatch);
 
+router.patch('/delete/:id', tourRouterController.deletePostPatch);
+
+
 module.exports = router;

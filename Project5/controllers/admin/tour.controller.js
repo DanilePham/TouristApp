@@ -292,3 +292,45 @@ module.exports.editPatch = async (req, res) => {
     }
 
 }
+
+module.exports.deletePostPatch = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const tourDetail = await Tour.findOne({
+            _id: id,
+            deleted: false
+        });
+
+        if (!tourDetail) {
+            res.json({
+                code: "error",
+                message: "Tour not found"
+            })
+            return;
+        }
+
+        // req.body.updatedBy = req.account.id;
+
+        await Tour.updateOne({
+            _id: id,
+            deleted: false
+        }, {
+            deleted: true,
+            deletedBy: req.account._id,
+            deletedAt: Date.now()
+        });
+
+        res.json({
+            code: "success",
+            message: "Tour deleted successfully"
+        });
+
+
+
+    } catch (error) {
+        res.json({
+            code: "error",
+            message: "An error occurred while deleting the tour"
+        });
+    }
+}
