@@ -99,7 +99,35 @@ module.exports.createTour = async (req, res) => {
 }
 
 module.exports.trashTours = async (req, res) => {
-    res.render('admin/page/tour-trash', { pagetitle: "Trash Tours" })
+
+     const find = {
+        deleted: true
+    };
+
+    const tourList = await Tour.find(find).sort({ deletedAt: "desc" });
+
+    for (const i of tourList) {
+        if (i.createdBy) {
+            const infoaccount = await AccountAdmin.findOne({ _id: i.createdBy });
+
+
+            if (infoaccount) {
+                i.createdByWho = infoaccount.fullname;
+                i.createdAtFormat = moment(i.createdAt).format('HH:mm - DD/MM/YYYY');
+            }
+        }
+
+        if (i.deletedBy) {
+            const infoaccount = await AccountAdmin.findOne({ _id: i.deletedBy });
+            if (infoaccount) {
+                i.deletedByWho = infoaccount.fullname;
+                i.deletedAtFormat = moment(i.deletedAt).format('HH:mm - DD/MM/YYYY');
+            }
+        }
+
+    }
+
+    res.render('admin/page/tour-trash', { pagetitle: "Trash Tours", tourList: tourList });
 }
 
 module.exports.createTourss = async (req, res) => {
@@ -334,3 +362,45 @@ module.exports.deletePostPatch = async (req, res) => {
         });
     }
 }
+
+
+module.exports.undoPostPatch = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const tourDetail = await Tour.findOne({
+            _id: id,
+            deleted: true
+        });
+
+        if (!tourDetail) {
+            res.json({
+                code: "error",
+                message: "Tour not found"
+            })
+            return;
+        }
+
+        // req.body.updatedBy = req.account.id;
+
+        await Tour.updateOne({
+            _id: id,
+            deleted: true
+        }, {
+            deleted: false
+        });
+
+        res.json({
+            code: "success",
+            message: "Tour restored successfully"
+        });
+
+
+
+    } catch (error) {
+        res.json({
+            code: "error",
+            message: "An error occurred while restoring the tour"
+        });
+    }
+}
+

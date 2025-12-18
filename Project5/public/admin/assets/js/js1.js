@@ -297,6 +297,33 @@ if (deletebuttons.length > 0) {
 //End delete button
 
 // -------------------------------------------------------------------//
+//button Undo
+const undoButton = document.querySelectorAll("[button-undo]");
+if (undoButton.length > 0) {
+    undoButton.forEach(button => {
+        button.addEventListener('click', () => {
+            console.log("Undo clicked");
+            const dataApi = button.getAttribute("data-api");
+            fetch(dataApi, {
+                method: "PATCH"
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === "error") {
+                        notify.error(data.message);
+                    }
+                    if (data.code === "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload();
+                    }
+                });
+        })
+    });
+}
+//End button Undo
+
+
+// -------------------------------------------------------------------//
 
 //filter-status
 const filterStatus = document.querySelector("[filter-status]");
