@@ -19,7 +19,35 @@ module.exports.accountAdminList = async (req, res) => {
 }
 
 module.exports.roleList = async (req, res) => {
-    res.render('admin/page/setting-role-list', { pagetitle: "Setting Role List" })
+     const find = {
+        deleted: false
+    };
+
+     const roleList = await Role.find(find).sort({ createdAt: "desc" });
+
+    for (const i of roleList) { 
+        if (i.createdBy) {
+            const infoaccount = await AccountAdmin.findOne({ _id: i.createdBy });
+
+
+            if (infoaccount) {
+                i.createdByWho = infoaccount.fullname;
+                i.createdAtFormat = moment(i.createdAt).format('HH:mm - DD/MM/YYYY');
+            }
+        }
+
+        if (i.updatedBy) {
+            const infoaccount = await AccountAdmin.findOne({ _id: i.updatedBy });
+            if (infoaccount) {
+                i.updatedByWho = infoaccount.fullname;
+                i.updatedAtFormat = moment(i.updatedAt).format('HH:mm - DD/MM/YYYY');
+            }
+        }
+
+    }
+
+
+    res.render('admin/page/setting-role-list', { pagetitle: "Setting Role List", roleList: roleList })
 }
 
 module.exports.accountAdminListCreate = async (req, res) => {
