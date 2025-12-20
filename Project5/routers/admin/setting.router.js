@@ -26,4 +26,7 @@ router.patch('/website-info', upload.fields([{
     name: 'favicon', maxCount: 1
 }]), settingController.updateWebsiteInfo);
 
+router.get('/role/edit/:id', settingController.roleEdit);
+router.post('/role/edit/:id', settingController.roleEditPost);
+
 module.exports = router;

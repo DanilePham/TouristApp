@@ -903,3 +903,58 @@ if (settingRoleCreateForm) {
 // End Setting Role Create Form
 
 
+
+// Setting Role Create Form Edit
+const settingRoleEditForm = document.querySelector("#setting-role-edit-form");
+if (settingRoleEditForm) {
+    const validator = new JustValidate('#setting-role-edit-form');
+
+    validator
+        .addField("#name", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập tên nhóm quyền!"
+            },
+        ])
+        .onSuccess((event) => {
+            const id = event.target.id.value;
+            const name = event.target.name.value;
+            const description = event.target.description.value;
+            const permissions = [];
+
+            // permissions
+            const listPermissionChecked = document.querySelectorAll(`[name="permissions"]:checked`);
+            listPermissionChecked.forEach(input => {
+                permissions.push(input.value);
+            })
+            // End permissions
+
+            const dataFinal = {
+
+                name: name,
+                description: description,
+                permissions: permissions
+            }
+
+            fetch(`/${pathAdmin}/settings/role/edit/${id}`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataFinal)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
+
+                    if (data.code == "success") {
+                        notify.success(data.message);
+                    }
+                })
+        });
+}
+// End Setting Role Create Edit Form
+
+

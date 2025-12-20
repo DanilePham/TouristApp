@@ -53,9 +53,9 @@ block main
                   div.inner-small #{item.updatedAtFormat}
               td.text-left
                 .box-actions 
-                  a(href=`/${pathAdmin}/role/edit/${item._id}` class="inner-edit")
+                  a(href=`/${pathAdmin}/settings/role/edit/${item._id}` class="inner-edit")
                     i.fa-solid.fa-pen-to-square
-                  button(class="inner-remove" button-delete data-api=`/${pathAdmin}/role/delete/${item._id}`)
+                  button(class="inner-remove" button-delete data-api=`/${pathAdmin}/settings/role/delete/${item._id}`)
                     i.fa-solid.fa-trash-can
   //- End Section 6
 

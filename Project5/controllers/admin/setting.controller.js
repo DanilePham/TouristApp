@@ -19,13 +19,13 @@ module.exports.accountAdminList = async (req, res) => {
 }
 
 module.exports.roleList = async (req, res) => {
-     const find = {
+    const find = {
         deleted: false
     };
 
-     const roleList = await Role.find(find).sort({ createdAt: "desc" });
+    const roleList = await Role.find(find).sort({ createdAt: "desc" });
 
-    for (const i of roleList) { 
+    for (const i of roleList) {
         if (i.createdBy) {
             const infoaccount = await AccountAdmin.findOne({ _id: i.createdBy });
 
@@ -54,7 +54,7 @@ module.exports.accountAdminListCreate = async (req, res) => {
     res.render('admin/page/setting-account-admin-create', { pagetitle: "Setting Admin Create" })
 }
 
-module.exports.roleCreate = async (req, res) => { 
+module.exports.roleCreate = async (req, res) => {
     res.render('admin/page/setting-role-create', { pagetitle: "Setting Role Create", permissions: permissions })
 }
 
@@ -83,12 +83,65 @@ module.exports.roleCreatePost = async (req, res) => {
     req.body.createdBy = req.account.id;
     console.log('Received role create data:', req.body);
 
-    const newRecord= new Role(req.body);
+    const newRecord = new Role(req.body);
     await newRecord.save();
 
-   
+
     res.json({
         code: "success",
         message: "Role created successfully"
     });
+}
+
+module.exports.roleEdit = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const roleDetail = await Role.findOne({
+            _id: id,
+            deleted: false
+        });
+
+        if (!roleDetail) {
+            res.redirect(`/${pathAdmin}/role/list`);
+            return;
+        } 
+        res.render('admin/page/setting-role-edit', { pagetitle: "Setting Role Edit", permissions: permissions, roleDetail: roleDetail });
+    } catch (error) {
+        console.error("Error editing tour:", error);
+        res.redirect(`/${pathAdmin}/role/list`);
+    }
+}
+
+module.exports.roleEditPost = async (req, res) => {
+     try {
+        const id = req.params.id;
+
+        const roleDetail = await Role.findOne({
+            _id: id,
+            deleted: false
+        });
+
+        if (!roleDetail) {
+            res.json({
+                code: "error",
+                message: "Role not found"
+            })
+            return;
+        } 
+        await Role.updateOne({
+            _id: id,
+            deleted: false
+        }, req.body);
+
+        res.json({
+            code: "success",
+            message: "Role updated successfully"
+        });
+    } catch (error) {
+        res.json({
+            code: "error",
+            message: "An error occurred while updating the role"
+        });
+    }
 }
