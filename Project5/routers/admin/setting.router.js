@@ -17,6 +17,9 @@ router.get('/account-admin/create', settingController.accountAdminListCreate);
 
 router.get('/role/create', settingController.roleCreate)
 
+router.post('/role/create', settingController.roleCreatePost)
+
+
 router.patch('/website-info', upload.fields([{
     name: 'logo', maxCount: 1
 }, {

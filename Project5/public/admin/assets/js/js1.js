@@ -532,7 +532,7 @@ if (changeMultiStatus) {
                     drawNotify(data.code, data.message);
                     window.location.reload();
                 }
-            }); 
+            });
     })
 }
 //End Change multi status
@@ -549,7 +549,7 @@ if (searchItemInput) {
             if (value) {
                 url.searchParams.set('keyword', value);
             }
-            else{
+            else {
                 url.searchParams.delete('keyword');
             }
             window.location.href = url.href;
@@ -557,9 +557,9 @@ if (searchItemInput) {
     });
 
     //express selected default
-    const valueCurrent=url.searchParams.get('keyword');
-    if(valueCurrent){
-        searchItemInput.value=valueCurrent;
+    const valueCurrent = url.searchParams.get('keyword');
+    if (valueCurrent) {
+        searchItemInput.value = valueCurrent;
     }
 }
 
@@ -568,23 +568,23 @@ if (searchItemInput) {
 // -------------------------------------------------------------------//    
 //Pagination
 const boxPagination = document.querySelector('[box-pagination]');
-if(boxPagination){
-    const url=new URL(window.location.href);
+if (boxPagination) {
+    const url = new URL(window.location.href);
 
-    boxPagination.addEventListener('change',()=>{
-        const page=boxPagination.value;
-        if(page){
-            url.searchParams.set('page',page);
-        }else{
+    boxPagination.addEventListener('change', () => {
+        const page = boxPagination.value;
+        if (page) {
+            url.searchParams.set('page', page);
+        } else {
             url.searchParams.delete('page');
         }
-        window.location.href=url.href;
+        window.location.href = url.href;
     });
 
     //express selected default
-    const pageCurrent=url.searchParams.get('page');
-    if(pageCurrent){
-        boxPagination.value=pageCurrent;
+    const pageCurrent = url.searchParams.get('page');
+    if (pageCurrent) {
+        boxPagination.value = pageCurrent;
     }
 }
 //End Pagination
@@ -593,257 +593,313 @@ if(boxPagination){
 
 // Tour Create Form
 const tourCreateForm = document.querySelector("#tour-create-form");
-if(tourCreateForm) {
-  const validator = new JustValidate('#tour-create-form');
+if (tourCreateForm) {
+    const validator = new JustValidate('#tour-create-form');
 
-  validator
-    .addField("#name", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập tên tour!"
-      },
-    ])
-    .onSuccess((event) => {
-      const name = event.target.name.value;
-      const category = event.target.category.value;
-      const position = event.target.position.value;
-      const status = event.target.status.value;
-      const avatar = filePond.avatar.getFile()?.file;
-      const priceAdult = event.target.priceAdult.value;
-      const priceChildren = event.target.priceChildren.value;
-      const priceBaby = event.target.priceBaby.value;
-      const priceNewAdult = event.target.priceNewAdult.value;
-      const priceNewChildren = event.target.priceNewChildren.value;
-      const priceNewBaby = event.target.priceNewBaby.value;
-      const stockAdult = event.target.stockAdult.value;
-      const stockChildren = event.target.stockChildren.value;
-      const stockBaby = event.target.stockBaby.value;
-      const locations = [];
-      const time = event.target.time.value;
-      const vehicle = event.target.vehicle.value;
-      const departureDate = event.target.departureDate.value;
-      const information = tinymce.get("information").getContent();
-      const schedules = [];
+    validator
+        .addField("#name", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập tên tour!"
+            },
+        ])
+        .onSuccess((event) => {
+            const name = event.target.name.value;
+            const category = event.target.category.value;
+            const position = event.target.position.value;
+            const status = event.target.status.value;
+            const avatar = filePond.avatar.getFile()?.file;
+            const priceAdult = event.target.priceAdult.value;
+            const priceChildren = event.target.priceChildren.value;
+            const priceBaby = event.target.priceBaby.value;
+            const priceNewAdult = event.target.priceNewAdult.value;
+            const priceNewChildren = event.target.priceNewChildren.value;
+            const priceNewBaby = event.target.priceNewBaby.value;
+            const stockAdult = event.target.stockAdult.value;
+            const stockChildren = event.target.stockChildren.value;
+            const stockBaby = event.target.stockBaby.value;
+            const locations = [];
+            const time = event.target.time.value;
+            const vehicle = event.target.vehicle.value;
+            const departureDate = event.target.departureDate.value;
+            const information = tinymce.get("information").getContent();
+            const schedules = [];
 
-      // locations
-      const listLocationChecked = document.querySelectorAll(`[name="locations"]:checked`);
-      listLocationChecked.forEach(input => {
-        locations.push(input.value);
-      })
-      // End locations
+            // locations
+            const listLocationChecked = document.querySelectorAll(`[name="locations"]:checked`);
+            listLocationChecked.forEach(input => {
+                locations.push(input.value);
+            })
+            // End locations
 
-      // schedules
-      const listScheduleItem = document.querySelectorAll(".inner-schedule .inner-schedule-item");
-      listScheduleItem.forEach(item => {
-        const inputTitle = item.querySelector("input");
-        const title = inputTitle.value;
+            // schedules
+            const listScheduleItem = document.querySelectorAll(".inner-schedule .inner-schedule-item");
+            listScheduleItem.forEach(item => {
+                const inputTitle = item.querySelector("input");
+                const title = inputTitle.value;
 
-        const textareaDescription = item.querySelector("textarea");
-        const idDescription = textareaDescription.id;
-        const description = tinymce.get(idDescription).getContent();
+                const textareaDescription = item.querySelector("textarea");
+                const idDescription = textareaDescription.id;
+                const description = tinymce.get(idDescription).getContent();
 
-        schedules.push({
-          title: title,
-          description: description
-        });
-      })
-      // End schedules
+                schedules.push({
+                    title: title,
+                    description: description
+                });
+            })
+            // End schedules
 
-      // Tạo FormData
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("category", category);
-      formData.append("position", position);
-      formData.append("status", status);
-      formData.append("avatar", avatar);
-      formData.append("priceAdult", priceAdult);
-      formData.append("priceChildren", priceChildren);
-      formData.append("priceBaby", priceBaby);
-      formData.append("priceNewAdult", priceNewAdult);
-      formData.append("priceNewChildren", priceNewChildren);
-      formData.append("priceNewBaby", priceNewBaby);
-      formData.append("stockAdult", stockAdult);
-      formData.append("stockChildren", stockChildren);
-      formData.append("stockBaby", stockBaby);
-      formData.append("locations", JSON.stringify(locations));
-      formData.append("time", time);
-      formData.append("vehicle", vehicle);
-      formData.append("departureDate", departureDate);
-      formData.append("information", information);
-      formData.append("schedules", JSON.stringify(schedules));
+            // Tạo FormData
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("category", category);
+            formData.append("position", position);
+            formData.append("status", status);
+            formData.append("avatar", avatar);
+            formData.append("priceAdult", priceAdult);
+            formData.append("priceChildren", priceChildren);
+            formData.append("priceBaby", priceBaby);
+            formData.append("priceNewAdult", priceNewAdult);
+            formData.append("priceNewChildren", priceNewChildren);
+            formData.append("priceNewBaby", priceNewBaby);
+            formData.append("stockAdult", stockAdult);
+            formData.append("stockChildren", stockChildren);
+            formData.append("stockBaby", stockBaby);
+            formData.append("locations", JSON.stringify(locations));
+            formData.append("time", time);
+            formData.append("vehicle", vehicle);
+            formData.append("departureDate", departureDate);
+            formData.append("information", information);
+            formData.append("schedules", JSON.stringify(schedules));
 
-      fetch(`/${pathAdmin}/tours/create`, {
-        method: "POST",
-        body: formData
-      })
-        .then(res => res.json())
-        .then(data => {
-          if(data.code == "error") {
-            notify.error(data.message);
-          }
+            fetch(`/${pathAdmin}/tours/create`, {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
 
-          if(data.code == "success") {
-            drawNotify(data.code, data.message);
-            window.location.reload(); // Load lại trang
-          }
+                    if (data.code == "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload(); // Load lại trang
+                    }
+                })
         })
-    })
 }
 // End Tour Create Form
 // -------------------------------------------------------------------//
 
 // Tour Edit Form
 const tourEditForm = document.querySelector("#tour-edit-form");
-if(tourEditForm) {
-  const validator = new JustValidate('#tour-edit-form');
+if (tourEditForm) {
+    const validator = new JustValidate('#tour-edit-form');
 
-  validator
-    .addField("#name", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập tên tour!"
-      },
-    ])
-    .onSuccess((event) => {
-      event.preventDefault();
-      const id = event.target.id.value;
-      const name = event.target.name.value;
-      const category = event.target.category.value;
-      const position = event.target.position.value;
-      const status = event.target.status.value;
-      const avatar = filePond.avatar.getFile()?.file;
-      const priceAdult = event.target.priceAdult.value;
-      const priceChildren = event.target.priceChildren.value;
-      const priceBaby = event.target.priceBaby.value;
-      const priceNewAdult = event.target.priceNewAdult.value;
-      const priceNewChildren = event.target.priceNewChildren.value;
-      const priceNewBaby = event.target.priceNewBaby.value;
-      const stockAdult = event.target.stockAdult.value;
-      const stockChildren = event.target.stockChildren.value;
-      const stockBaby = event.target.stockBaby.value;
-      const locations = [];
-      const time = event.target.time.value;
-      const vehicle = event.target.vehicle.value;
-      const departureDate = event.target.departureDate.value;
-      const information = tinymce.get("information").getContent();
-      const schedules = [];
+    validator
+        .addField("#name", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập tên tour!"
+            },
+        ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const id = event.target.id.value;
+            const name = event.target.name.value;
+            const category = event.target.category.value;
+            const position = event.target.position.value;
+            const status = event.target.status.value;
+            const avatar = filePond.avatar.getFile()?.file;
+            const priceAdult = event.target.priceAdult.value;
+            const priceChildren = event.target.priceChildren.value;
+            const priceBaby = event.target.priceBaby.value;
+            const priceNewAdult = event.target.priceNewAdult.value;
+            const priceNewChildren = event.target.priceNewChildren.value;
+            const priceNewBaby = event.target.priceNewBaby.value;
+            const stockAdult = event.target.stockAdult.value;
+            const stockChildren = event.target.stockChildren.value;
+            const stockBaby = event.target.stockBaby.value;
+            const locations = [];
+            const time = event.target.time.value;
+            const vehicle = event.target.vehicle.value;
+            const departureDate = event.target.departureDate.value;
+            const information = tinymce.get("information").getContent();
+            const schedules = [];
 
-      // locations
-      const listLocationChecked = document.querySelectorAll(`[name="locations"]:checked`);
-      listLocationChecked.forEach(input => {
-        locations.push(input.value);
-      })
-      // End locations
+            // locations
+            const listLocationChecked = document.querySelectorAll(`[name="locations"]:checked`);
+            listLocationChecked.forEach(input => {
+                locations.push(input.value);
+            })
+            // End locations
 
-      // schedules
-      const listScheduleItem = document.querySelectorAll(".inner-schedule .inner-schedule-item");
-      listScheduleItem.forEach(item => {
-        const inputTitle = item.querySelector("input");
-        const title = inputTitle.value;
+            // schedules
+            const listScheduleItem = document.querySelectorAll(".inner-schedule .inner-schedule-item");
+            listScheduleItem.forEach(item => {
+                const inputTitle = item.querySelector("input");
+                const title = inputTitle.value;
 
-        const textareaDescription = item.querySelector("textarea");
-        const idDescription = textareaDescription.id;
-        const description = tinymce.get(idDescription).getContent();
+                const textareaDescription = item.querySelector("textarea");
+                const idDescription = textareaDescription.id;
+                const description = tinymce.get(idDescription).getContent();
 
-        schedules.push({
-          title: title,
-          description: description
-        });
-      })
-      // End schedules
+                schedules.push({
+                    title: title,
+                    description: description
+                });
+            })
+            // End schedules
 
-      // Tạo FormData
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("category", category);
-      formData.append("position", position);
-      formData.append("status", status);
-      formData.append("avatar", avatar);
-      formData.append("priceAdult", priceAdult);
-      formData.append("priceChildren", priceChildren);
-      formData.append("priceBaby", priceBaby);
-      formData.append("priceNewAdult", priceNewAdult);
-      formData.append("priceNewChildren", priceNewChildren);
-      formData.append("priceNewBaby", priceNewBaby);
-      formData.append("stockAdult", stockAdult);
-      formData.append("stockChildren", stockChildren);
-      formData.append("stockBaby", stockBaby);
-      formData.append("locations", JSON.stringify(locations));
-      formData.append("time", time);
-      formData.append("vehicle", vehicle);
-      formData.append("departureDate", departureDate);
-      formData.append("information", information);
-      formData.append("schedules", JSON.stringify(schedules));
+            // Tạo FormData
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("category", category);
+            formData.append("position", position);
+            formData.append("status", status);
+            formData.append("avatar", avatar);
+            formData.append("priceAdult", priceAdult);
+            formData.append("priceChildren", priceChildren);
+            formData.append("priceBaby", priceBaby);
+            formData.append("priceNewAdult", priceNewAdult);
+            formData.append("priceNewChildren", priceNewChildren);
+            formData.append("priceNewBaby", priceNewBaby);
+            formData.append("stockAdult", stockAdult);
+            formData.append("stockChildren", stockChildren);
+            formData.append("stockBaby", stockBaby);
+            formData.append("locations", JSON.stringify(locations));
+            formData.append("time", time);
+            formData.append("vehicle", vehicle);
+            formData.append("departureDate", departureDate);
+            formData.append("information", information);
+            formData.append("schedules", JSON.stringify(schedules));
 
-      fetch(`/${pathAdmin}/tours/edit/${id}`, {
-        method: "PATCH",
-        body: formData
-      })
-        .then(res => res.json())
-        .then(data => {
-          if(data.code == "error") {
-            notify.error(data.message);
-          }
+            fetch(`/${pathAdmin}/tours/edit/${id}`, {
+                method: "PATCH",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
 
-          if(data.code == "success") {
-            notify.success(data.message);
-          }
+                    if (data.code == "success") {
+                        notify.success(data.message);
+                    }
+                })
         })
-    })
 }
 // End Tour Edit Form
 
 
 // Setting Website Info Form
 const settingWebsiteInfoForm = document.querySelector("#setting-website-info-form");
-if(settingWebsiteInfoForm) {
-  const validator = new JustValidate('#setting-website-info-form');
+if (settingWebsiteInfoForm) {
+    const validator = new JustValidate('#setting-website-info-form');
 
-  validator
-    .addField("#websiteName", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập tên website!"
-      },
-    ])
-    .addField("#email", [
-      {
-        rule: "email",
-        errorMessage: "Email không đúng định dạng!"
-      },
-    ])
-    .onSuccess((event) => {
-      event.preventDefault();
-      const websiteName = event.target.websiteName.value;
-      const phone = event.target.phone.value;
-      const email = event.target.email.value;
-      const address = event.target.address.value;
-      const logo = filePond.logo.getFile()?.file;
-      const favicon = filePond.favicon.getFile()?.file; 
+    validator
+        .addField("#websiteName", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập tên website!"
+            },
+        ])
+        .addField("#email", [
+            {
+                rule: "email",
+                errorMessage: "Email không đúng định dạng!"
+            },
+        ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const websiteName = event.target.websiteName.value;
+            const phone = event.target.phone.value;
+            const email = event.target.email.value;
+            const address = event.target.address.value;
+            const logo = filePond.logo.getFile()?.file;
+            const favicon = filePond.favicon.getFile()?.file;
 
-      // Tạo FormData
-      const formData = new FormData();9
-      formData.append("websiteName", websiteName);
-      formData.append("phone", phone);
-      formData.append("email", email);
-      formData.append("address", address);
-      formData.append("logo", logo);
-      formData.append("favicon", favicon);
+            // Tạo FormData
+            const formData = new FormData(); 9
+            formData.append("websiteName", websiteName);
+            formData.append("phone", phone);
+            formData.append("email", email);
+            formData.append("address", address);
+            formData.append("logo", logo);
+            formData.append("favicon", favicon);
 
-      fetch(`/${pathAdmin}/settings/website-info`, {
-        method: "PATCH",
-        body: formData
-      })
-        .then(res => res.json())
-        .then(data => {
-          if(data.code == "error") {
-            notify.error(data.message);
-          }
+            fetch(`/${pathAdmin}/settings/website-info`, {
+                method: "PATCH",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
 
-          if(data.code == "success") {
-            notify.success(data.message);
-          }
+                    if (data.code == "success") {
+                        notify.success(data.message);
+                    }
+                })
         })
-    })
 }
 // End Setting Website Info Form
+
+// -------------------------------------------------------------------//
+
+// Setting Role Create Form
+const settingRoleCreateForm = document.querySelector("#setting-role-create-form");
+if (settingRoleCreateForm) {
+    const validator = new JustValidate('#setting-role-create-form');
+
+    validator
+        .addField("#name", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập tên nhóm quyền!"
+            },
+        ])
+        .onSuccess((event) => {
+            const name = event.target.name.value;
+            const description = event.target.description.value;
+            const permissions = [];
+
+            // permissions
+            const listPermissionChecked = document.querySelectorAll(`[name="permissions"]:checked`);
+            listPermissionChecked.forEach(input => {
+                permissions.push(input.value);
+            })
+            // End permissions
+
+            const dataFinal = {
+                name: name,
+                description: description,
+                permissions: permissions
+            }
+
+            fetch(`/${pathAdmin}/settings/role/create`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataFinal)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
+
+                    if (data.code == "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload(); // Load lại trang
+                    }
+                })
+        });
+}
+// End Setting Role Create Form
+
+
