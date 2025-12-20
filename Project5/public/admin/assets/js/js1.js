@@ -792,3 +792,58 @@ if(tourEditForm) {
     })
 }
 // End Tour Edit Form
+
+
+// Setting Website Info Form
+const settingWebsiteInfoForm = document.querySelector("#setting-website-info-form");
+if(settingWebsiteInfoForm) {
+  const validator = new JustValidate('#setting-website-info-form');
+
+  validator
+    .addField("#websiteName", [
+      {
+        rule: "required",
+        errorMessage: "Vui lòng nhập tên website!"
+      },
+    ])
+    .addField("#email", [
+      {
+        rule: "email",
+        errorMessage: "Email không đúng định dạng!"
+      },
+    ])
+    .onSuccess((event) => {
+      event.preventDefault();
+      const websiteName = event.target.websiteName.value;
+      const phone = event.target.phone.value;
+      const email = event.target.email.value;
+      const address = event.target.address.value;
+      const logo = filePond.logo.getFile()?.file;
+      const favicon = filePond.favicon.getFile()?.file; 
+
+      // Tạo FormData
+      const formData = new FormData();9
+      formData.append("websiteName", websiteName);
+      formData.append("phone", phone);
+      formData.append("email", email);
+      formData.append("address", address);
+      formData.append("logo", logo);
+      formData.append("favicon", favicon);
+
+      fetch(`/${pathAdmin}/settings/website-info`, {
+        method: "PATCH",
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notify.error(data.message);
+          }
+
+          if(data.code == "success") {
+            notify.success(data.message);
+          }
+        })
+    })
+}
+// End Setting Website Info Form

@@ -5,27 +5,27 @@ block main
   h1.box-title Thông tin website
 
   .section-8
-    form(action="")
+    form(action="" id="setting-website-info-form")
       .inner-group 
         label.inner-label(for="websiteName") Tên website
-        input(type="text" id="websiteName" name="websiteName" value="28.TRAVEL")
+        input(type="text" id="websiteName" name="websiteName" value=websiteInfo.websiteName)
       .inner-group 
         label.inner-label(for="phone") Số điện thoại
-        input(type="text" id="phone" name="phone" value="0123456789")
+        input(type="text" id="phone" name="phone" value=websiteInfo.phone)
       .inner-group 
         label.inner-label(for="email") Email
-        input(type="email" id="email" name="email" value="contact@28.travel.com")
+        input(type="email" id="email" name="email" value=websiteInfo.email)
       .inner-group 
         label.inner-label(for="address") Địa chỉ
-        input(type="text" id="address" name="address" value="Số 123, đường ABC")
+        input(type="text" id="address" name="address" value=websiteInfo.address)
       .inner-group
         label.inner-label(for="logo") Logo
         div(class="inner-upload-image")
-          input(type="file" id="logo" name="logo" filepond-image)
+          input(type="file" id="logo" name="logo" filepond-image image-default=websiteInfo.logo)
       .inner-group
         label.inner-label(for="favicon") Favicon
         div(class="inner-upload-image")
-          input(type="file" id="favicon" name="favicon" filepond-image)
+          input(type="file" id="favicon" name="favicon" filepond-image image-default=websiteInfo.favicon)
       .inner-button.inner-two-col
         button Cập nhật
     .inner-back 
