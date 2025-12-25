@@ -16,13 +16,13 @@ module.exports.websiteInfo = async (req, res) => {
 }
 
 module.exports.accountAdminList = async (req, res) => {
-    const accountAdminList= await AccountAdmin.find({ deleted: false }).sort({ createdAt: "desc" });
+    const accountAdminList = await AccountAdmin.find({ deleted: false }).sort({ createdAt: "desc" });
 
     for (const i of accountAdminList) {
-        if(i.role){
+        if (i.role) {
             const roleDetail = await Role.findOne({ _id: i.role, deleted: false });
-            if(roleDetail){
-                i.roleName=roleDetail.name;
+            if (roleDetail) {
+                i.roleName = roleDetail.name;
             }
         }
     }
@@ -184,10 +184,90 @@ module.exports.accountAdminListCreatePost = async (req, res) => {
     req.body.createdBy = req.account.id;
     req.body.password = await bcrypt.hash(req.body.password, 10);
     const newRecord = new AccountAdmin(req.body);
-    await newRecord.save(); 
+    await newRecord.save();
 
     res.json({
         code: "success",
         message: "Role created successfully"
     });
+}
+
+module.exports.accountAdminEdit = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const accountAdminDetail = await AccountAdmin.findOne({
+            _id: id,
+            deleted: false
+        });
+
+        if (!accountAdminDetail) {
+            res.redirect(`/${pathAdmin}/account-admin/list`);
+            return;
+        }
+        const roleList = await Role.find({ deleted: false });
+
+        res.render('admin/page/setting-account-admin-edit', { pagetitle: "Setting Account Admin Edit", roleList: roleList, accountAdminDetail: accountAdminDetail });
+
+    } catch (error) {
+        console.error("Error editing account admin:", error);
+        res.redirect(`/${pathAdmin}/account-admin/list`);
+    }
+}
+
+
+module.exports.accountAdminEditPatch = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const accountAdminDetail = await AccountAdmin.findOne({
+            _id: id,
+            deleted: false
+        });
+
+        if (!accountAdminDetail) {
+            res.json({
+                code: "error",
+                message: "Account admin not found"
+            })
+            return;
+        }
+
+        const existEmail = await AccountAdmin.findOne({
+            _id: { $ne: id }, //not equal id 
+            email: req.body.email
+        })
+        
+        if (existEmail) {
+            res.json({
+                code: "error",
+                message: "Email already in use"
+            });
+            return;
+        }
+
+        if (req.file) {
+            req.body.avatar = req.file.path;
+        } else {
+            req.body.avatar = "";
+        }
+
+        req.body.updatedBy = req.account.id;
+
+        await AccountAdmin.updateOne({
+            _id: id,
+            deleted: false
+        }, req.body);
+
+        res.json({
+            code: "success",
+            message: "Account admin updated successfully"
+        });
+
+    } catch (error) {
+        res.json({
+            code: "error",
+            message: "An error occurred while updating the account admin"
+        });
+    }
 }

@@ -32,4 +32,9 @@ router.patch('/website-info', upload.fields([{
 router.get('/role/edit/:id', settingController.roleEdit);
 router.post('/role/edit/:id', settingController.roleEditPost);
 
+router.get('/account-admin/edit/:id', settingController.accountAdminEdit);
+
+router.patch('/account-admin/edit/:id', upload.single('avatar'), settingController.accountAdminEditPatch);
+
+
 module.exports = router;

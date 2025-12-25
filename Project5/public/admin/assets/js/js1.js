@@ -906,6 +906,85 @@ if(settingAccountAdminCreateForm) {
 // -------------------------------------------------------------------//
 
 
+// Setting Account Admin Edit Form
+const settingAccountAdminEditForm = document.querySelector("#setting-account-admin-edit-form");
+if(settingAccountAdminEditForm) {
+  const validator = new JustValidate('#setting-account-admin-edit-form');
+
+  validator
+    .addField("#fullname", [
+      {
+        rule: "required",
+        errorMessage: "Vui lòng nhập họ tên!"
+      },
+      {
+        rule: 'minLength',
+        value: 5,
+        errorMessage: "Vui lòng nhập ít nhất 5 ký tự!"
+      },
+      {
+        rule: 'maxLength',
+        value: 50,
+        errorMessage: "Vui lòng nhập tối đa 50 ký tự!"
+      },
+    ])
+    .addField("#email", [
+      {
+        rule: "required",
+        errorMessage: "Vui lòng nhập email!"
+      },
+      {
+        rule: "email",
+        errorMessage: "Email không đúng định dạng!"
+      },
+    ])
+    .addField("#positionCompany", [
+      {
+        rule: "required",
+        errorMessage: "Vui lòng nhập chức vụ!"
+      },
+    ])
+    .onSuccess((event) => {
+      event.preventDefault();
+      const id = event.target.id.value;
+      const fullname = event.target.fullname.value;
+      const email = event.target.email.value;
+      const phone = event.target.phone.value;
+      const role = event.target.role.value;
+      const positionCompany = event.target.positionCompany.value;
+      const status = event.target.status.value;
+      const avatar = filePond.avatar.getFile()?.file;
+
+        // Tạo FormData
+        const formData = new FormData();
+        formData.append("fullname", fullname);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("role", role);
+        formData.append("positionCompany", positionCompany);
+        formData.append("status", status);
+        formData.append("avatar", avatar);
+
+        fetch(`/${pathAdmin}/settings/account-admin/edit/${id}`, {
+            method: "PATCH",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+            if (data.code == "error") {
+                notify.error(data.message);
+            }
+
+            if (data.code == "success") {
+                drawNotify(data.code, data.message);
+                window.location.reload(); // Load lại trang
+            }
+        })
+    })
+}
+// End Setting Account Admin Edit Form
+// -------------------------------------------------------------------//
+
 // Setting Website Info Form
 const settingWebsiteInfoForm = document.querySelector("#setting-website-info-form");
 if (settingWebsiteInfoForm) {
