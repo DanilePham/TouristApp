@@ -3,8 +3,21 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     fullname: String,
     email: String,
+    phone: String,
+    role: String,
+    positionCompany: String,
+    status:String,
     password: String,
-    status: String
+    avatar: String,
+    createdBy: String,
+    updatedBy: String,
+    deleted: {
+        type: Boolean,
+        default: false
+    },
+    deletedBy:String,
+    deletedAt: Date
+
 }, {
     timestamps: true
 }

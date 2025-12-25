@@ -1,4 +1,5 @@
 const SettingWebsiteInfo = require('../../models/setting-website-info.model');
+const bcrypt = require('bcrypt');
 const { AccountAdmin } = require("../../models/account-admin.model")
 const { permissions } = require('../../config/variable.config');
 const Role = require('../../models/roles.model');
@@ -51,13 +52,16 @@ module.exports.roleList = async (req, res) => {
 }
 
 module.exports.accountAdminListCreate = async (req, res) => {
-    res.render('admin/page/setting-account-admin-create', { pagetitle: "Setting Admin Create" })
+    const roleList = await Role.find({
+        deleted: false
+    });
+
+    res.render('admin/page/setting-account-admin-create', { pagetitle: "Setting Admin Create", roleList: roleList })
 }
 
 module.exports.roleCreate = async (req, res) => {
     res.render('admin/page/setting-role-create', { pagetitle: "Setting Role Create", permissions: permissions })
 }
-
 
 module.exports.updateWebsiteInfo = async (req, res) => {
     req.body.logo = req.files && req.files.logo ? req.files.logo[0].path : "";
@@ -105,7 +109,7 @@ module.exports.roleEdit = async (req, res) => {
         if (!roleDetail) {
             res.redirect(`/${pathAdmin}/role/list`);
             return;
-        } 
+        }
         res.render('admin/page/setting-role-edit', { pagetitle: "Setting Role Edit", permissions: permissions, roleDetail: roleDetail });
     } catch (error) {
         console.error("Error editing tour:", error);
@@ -114,7 +118,7 @@ module.exports.roleEdit = async (req, res) => {
 }
 
 module.exports.roleEditPost = async (req, res) => {
-     try {
+    try {
         const id = req.params.id;
 
         const roleDetail = await Role.findOne({
@@ -128,7 +132,7 @@ module.exports.roleEditPost = async (req, res) => {
                 message: "Role not found"
             })
             return;
-        } 
+        }
         await Role.updateOne({
             _id: id,
             deleted: false
@@ -144,4 +148,34 @@ module.exports.roleEditPost = async (req, res) => {
             message: "An error occurred while updating the role"
         });
     }
+}
+
+module.exports.accountAdminListCreatePost = async (req, res) => {
+    const existEmail = await AccountAdmin.findOne({
+        email: req.body.email
+    })
+
+    if (existEmail) {
+        res.json({
+            code: "error",
+            message: "Email already in use"
+        });
+        return;
+    }
+
+    if (req.file) {
+        req.body.avatar = req.file.path;
+    } else {
+        req.body.avatar = "";
+    }
+
+    req.body.createdBy = req.account.id;
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+    const newRecord = new AccountAdmin(req.body);
+    await newRecord.save(); 
+
+    res.json({
+        code: "success",
+        message: "Role created successfully"
+    });
 }
