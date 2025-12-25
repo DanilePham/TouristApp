@@ -65,24 +65,30 @@ block main
             th.text-center Trạng thái
             th.text-left Hành động
         tbody 
-          tr 
-            td.text-left
-              +checkbox-30("", "")
-            td.text-left Lê Văn A
-            td.text-center
-              img(src="/admin/assets/images/tour1.png" class="inner-avatar")
-            td.text-left levana@gmail.com
-            td.text-left 01234567890
-            td.text-left Quản trị viên
-            td.text-left Giám đốc
-            td.text-center
-              .tag.tag-orange Khởi tạo
-            td.text-left
-              .box-actions 
-                a(href="#" class="inner-edit")
-                  <i class="fa-solid fa-pen-to-square"></i>
-                a(href="#" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i>
+          each item in accountAdminList
+            tr 
+              td.text-left
+                +checkbox-30("", "")
+              td.text-left #{item.fullname}
+              td.text-center
+                img(src=item.avatar class="inner-avatar")
+              td.text-left #{item.email}
+              td.text-left #{item.phone}
+              td.text-left #{item.roleName}
+              td.text-left #{item.positionCompany}
+              td.text-center 
+                if(item.status=="initial")
+                  .tag.tag-orange Khởi Tạo
+                else if(item.status=="active")
+                  .tag.tag-green Hoạt Động
+                else if(item.status=="inactive")
+                  .tag.tag-red Tạm Dừng
+              td.text-left
+                .box-actions 
+                  a(href=`/${pathAdmin}/settings/account-admin/edit/${item._id}` class="inner-edit")
+                    i.fa-solid.fa-pen-to-square
+                  button(class="inner-remove" button-delete data-api=`/${pathAdmin}/settings/account-admin/delete/${item._id}`)
+                    i.fa-solid.fa-trash-can
   //- End Section 6
 
   //- Section 7

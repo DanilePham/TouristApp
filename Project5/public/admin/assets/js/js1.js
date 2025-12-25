@@ -865,7 +865,7 @@ if(settingAccountAdminCreateForm) {
     ])
     .onSuccess((event) => {
       event.preventDefault();
-      const fullName = event.target.fullname.value;
+      const fullname = event.target.fullname.value;
       const email = event.target.email.value;
       const phone = event.target.phone.value;
       const role = event.target.role.value;
@@ -876,7 +876,7 @@ if(settingAccountAdminCreateForm) {
 
         // Tạo FormData
         const formData = new FormData();
-        formData.append("fullName", fullName);
+        formData.append("fullname", fullname);
         formData.append("email", email);
         formData.append("phone", phone);
         formData.append("role", role);

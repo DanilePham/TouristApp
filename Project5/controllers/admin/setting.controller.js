@@ -16,7 +16,19 @@ module.exports.websiteInfo = async (req, res) => {
 }
 
 module.exports.accountAdminList = async (req, res) => {
-    res.render('admin/page/setting-account-admin-list', { pagetitle: "Setting Admin List" })
+    const accountAdminList= await AccountAdmin.find({ deleted: false }).sort({ createdAt: "desc" });
+
+    for (const i of accountAdminList) {
+        if(i.role){
+            const roleDetail = await Role.findOne({ _id: i.role, deleted: false });
+            if(roleDetail){
+                i.roleName=roleDetail.name;
+            }
+        }
+    }
+
+
+    res.render('admin/page/setting-account-admin-list', { pagetitle: "Setting Admin List", accountAdminList: accountAdminList })
 }
 
 module.exports.roleList = async (req, res) => {
