@@ -796,111 +796,111 @@ if (tourEditForm) {
 
 // Setting Account Admin Create Form
 const settingAccountAdminCreateForm = document.querySelector("#setting-account-admin-create-form");
-if(settingAccountAdminCreateForm) {
-  const validator = new JustValidate('#setting-account-admin-create-form');
+if (settingAccountAdminCreateForm) {
+    const validator = new JustValidate('#setting-account-admin-create-form');
 
-  validator
-    .addField("#fullname", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập họ tên!"
-      },
-      {
-        rule: 'minLength',
-        value: 5,
-        errorMessage: "Vui lòng nhập ít nhất 5 ký tự!"
-      },
-      {
-        rule: 'maxLength',
-        value: 50,
-        errorMessage: "Vui lòng nhập tối đa 50 ký tự!"
-      },
-    ])
-    .addField("#email", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập email!"
-      },
-      {
-        rule: "email",
-        errorMessage: "Email không đúng định dạng!"
-      },
-    ])
-    .addField("#positionCompany", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập chức vụ!"
-      },
-    ])
-    .addField("#password", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập mật khẩu!"
-      },
-      {
-        rule: 'minLength',
-        value: 8,
-        errorMessage: "Mật khẩu phải có ít nhất 8 ký tự!"
-      },
-      {
-        rule: 'customRegexp',
-        value: /[a-z]/,
-        errorMessage: "Mật khẩu phải chứa ký tự thường!"
-      },
-      {
-        rule: 'customRegexp',
-        value: /[A-Z]/,
-        errorMessage: "Mật khẩu phải chứa ký tự hoa!"
-      },
-      {
-        rule: 'customRegexp',
-        value: /\d/,
-        errorMessage: "Mật khẩu phải chứa chữ số!"
-      },
-      {
-        rule: 'customRegexp',
-        value: /[^A-Za-z0-9]/,
-        errorMessage: "Mật khẩu phải chứa ký tự đặc biệt!"
-      },
-    ])
-    .onSuccess((event) => {
-      event.preventDefault();
-      const fullname = event.target.fullname.value;
-      const email = event.target.email.value;
-      const phone = event.target.phone.value;
-      const role = event.target.role.value;
-      const positionCompany = event.target.positionCompany.value;
-      const status = event.target.status.value;
-      const password = event.target.password.value;
-      const avatar = filePond.avatar.getFile()?.file;
+    validator
+        .addField("#fullname", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập họ tên!"
+            },
+            {
+                rule: 'minLength',
+                value: 5,
+                errorMessage: "Vui lòng nhập ít nhất 5 ký tự!"
+            },
+            {
+                rule: 'maxLength',
+                value: 50,
+                errorMessage: "Vui lòng nhập tối đa 50 ký tự!"
+            },
+        ])
+        .addField("#email", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập email!"
+            },
+            {
+                rule: "email",
+                errorMessage: "Email không đúng định dạng!"
+            },
+        ])
+        .addField("#positionCompany", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập chức vụ!"
+            },
+        ])
+        .addField("#password", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập mật khẩu!"
+            },
+            {
+                rule: 'minLength',
+                value: 8,
+                errorMessage: "Mật khẩu phải có ít nhất 8 ký tự!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /[a-z]/,
+                errorMessage: "Mật khẩu phải chứa ký tự thường!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /[A-Z]/,
+                errorMessage: "Mật khẩu phải chứa ký tự hoa!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /\d/,
+                errorMessage: "Mật khẩu phải chứa chữ số!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /[^A-Za-z0-9]/,
+                errorMessage: "Mật khẩu phải chứa ký tự đặc biệt!"
+            },
+        ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const fullname = event.target.fullname.value;
+            const email = event.target.email.value;
+            const phone = event.target.phone.value;
+            const role = event.target.role.value;
+            const positionCompany = event.target.positionCompany.value;
+            const status = event.target.status.value;
+            const password = event.target.password.value;
+            const avatar = filePond.avatar.getFile()?.file;
 
-        // Tạo FormData
-        const formData = new FormData();
-        formData.append("fullname", fullname);
-        formData.append("email", email);
-        formData.append("phone", phone);
-        formData.append("role", role);
-        formData.append("positionCompany", positionCompany);
-        formData.append("status", status);
-        formData.append("password", password);
-        formData.append("avatar", avatar);
+            // Tạo FormData
+            const formData = new FormData();
+            formData.append("fullname", fullname);
+            formData.append("email", email);
+            formData.append("phone", phone);
+            formData.append("role", role);
+            formData.append("positionCompany", positionCompany);
+            formData.append("status", status);
+            formData.append("password", password);
+            formData.append("avatar", avatar);
 
-        fetch(`/${pathAdmin}/settings/account-admin/create`, {
-            method: "POST",
-            body: formData
+            fetch(`/${pathAdmin}/settings/account-admin/create`, {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
+
+                    if (data.code == "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload(); // Load lại trang
+                    }
+                })
         })
-            .then(res => res.json())
-            .then(data => {
-            if (data.code == "error") {
-                notify.error(data.message);
-            }
-
-            if (data.code == "success") {
-                drawNotify(data.code, data.message);
-                window.location.reload(); // Load lại trang
-            }
-        })
-    })
 }
 // End Setting Account Admin Create Form
 // -------------------------------------------------------------------//
@@ -908,79 +908,79 @@ if(settingAccountAdminCreateForm) {
 
 // Setting Account Admin Edit Form
 const settingAccountAdminEditForm = document.querySelector("#setting-account-admin-edit-form");
-if(settingAccountAdminEditForm) {
-  const validator = new JustValidate('#setting-account-admin-edit-form');
+if (settingAccountAdminEditForm) {
+    const validator = new JustValidate('#setting-account-admin-edit-form');
 
-  validator
-    .addField("#fullname", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập họ tên!"
-      },
-      {
-        rule: 'minLength',
-        value: 5,
-        errorMessage: "Vui lòng nhập ít nhất 5 ký tự!"
-      },
-      {
-        rule: 'maxLength',
-        value: 50,
-        errorMessage: "Vui lòng nhập tối đa 50 ký tự!"
-      },
-    ])
-    .addField("#email", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập email!"
-      },
-      {
-        rule: "email",
-        errorMessage: "Email không đúng định dạng!"
-      },
-    ])
-    .addField("#positionCompany", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập chức vụ!"
-      },
-    ])
-    .onSuccess((event) => {
-      event.preventDefault();
-      const id = event.target.id.value;
-      const fullname = event.target.fullname.value;
-      const email = event.target.email.value;
-      const phone = event.target.phone.value;
-      const role = event.target.role.value;
-      const positionCompany = event.target.positionCompany.value;
-      const status = event.target.status.value;
-      const avatar = filePond.avatar.getFile()?.file;
+    validator
+        .addField("#fullname", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập họ tên!"
+            },
+            {
+                rule: 'minLength',
+                value: 5,
+                errorMessage: "Vui lòng nhập ít nhất 5 ký tự!"
+            },
+            {
+                rule: 'maxLength',
+                value: 50,
+                errorMessage: "Vui lòng nhập tối đa 50 ký tự!"
+            },
+        ])
+        .addField("#email", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập email!"
+            },
+            {
+                rule: "email",
+                errorMessage: "Email không đúng định dạng!"
+            },
+        ])
+        .addField("#positionCompany", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập chức vụ!"
+            },
+        ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const id = event.target.id.value;
+            const fullname = event.target.fullname.value;
+            const email = event.target.email.value;
+            const phone = event.target.phone.value;
+            const role = event.target.role.value;
+            const positionCompany = event.target.positionCompany.value;
+            const status = event.target.status.value;
+            const avatar = filePond.avatar.getFile()?.file;
 
-        // Tạo FormData
-        const formData = new FormData();
-        formData.append("fullname", fullname);
-        formData.append("email", email);
-        formData.append("phone", phone);
-        formData.append("role", role);
-        formData.append("positionCompany", positionCompany);
-        formData.append("status", status);
-        formData.append("avatar", avatar);
+            // Tạo FormData
+            const formData = new FormData();
+            formData.append("fullname", fullname);
+            formData.append("email", email);
+            formData.append("phone", phone);
+            formData.append("role", role);
+            formData.append("positionCompany", positionCompany);
+            formData.append("status", status);
+            formData.append("avatar", avatar);
 
-        fetch(`/${pathAdmin}/settings/account-admin/edit/${id}`, {
-            method: "PATCH",
-            body: formData
+            fetch(`/${pathAdmin}/settings/account-admin/edit/${id}`, {
+                method: "PATCH",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
+
+                    if (data.code == "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload(); // Load lại trang
+                    }
+                })
         })
-            .then(res => res.json())
-            .then(data => {
-            if (data.code == "error") {
-                notify.error(data.message);
-            }
-
-            if (data.code == "success") {
-                drawNotify(data.code, data.message);
-                window.location.reload(); // Load lại trang
-            }
-        })
-    })
 }
 // End Setting Account Admin Edit Form
 // -------------------------------------------------------------------//
@@ -1148,4 +1148,68 @@ if (settingRoleEditForm) {
 }
 // End Setting Role Create Edit Form
 
+// Profile Edit Form
+const profileEditForm = document.querySelector("#profile-edit-form");
+if (profileEditForm) {
+    const validator = new JustValidate('#profile-edit-form');
 
+    validator
+        .addField("#fullname", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập họ tên!"
+            },
+            {
+                rule: 'minLength',
+                value: 5,
+                errorMessage: "Vui lòng nhập ít nhất 5 ký tự!"
+            },
+            {
+                rule: 'maxLength',
+                value: 50,
+                errorMessage: "Vui lòng nhập tối đa 50 ký tự!"
+            },
+        ])
+        .addField("#email", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập email!"
+            },
+            {
+                rule: "email",
+                errorMessage: "Email không đúng định dạng!"
+            },
+        ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const fullName = event.target.fullname.value;
+            const email = event.target.email.value;
+            const phone = event.target.phone.value;
+            const avatar = filePond.avatar.getFile()?.file;
+
+            // Tạo FormData
+            const formData = new FormData();
+            formData.append("fullname", fullName);
+            formData.append("email", email);
+            formData.append("phone", phone);
+            formData.append("avatar", avatar);
+
+            fetch(`/${pathAdmin}/profile/edit`, {
+                method: "PATCH",
+                body: formData,
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
+
+                    if (data.code == "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload();
+                    }
+                })
+        })
+}
+// End Profile Edit Form
+// -------------------------------------------------------------------//
