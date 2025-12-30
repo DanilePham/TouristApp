@@ -1213,3 +1213,67 @@ if (profileEditForm) {
 }
 // End Profile Edit Form
 // -------------------------------------------------------------------//
+
+// Profile Change Password Form
+const profileChangePasswordForm = document.querySelector("#profile-change-password-form");
+if (profileChangePasswordForm) {
+    const validator = new JustValidate('#profile-change-password-form');
+
+    validator
+        .addField("#password", [
+            {
+                rule: "required",
+                errorMessage: "Vui lòng nhập mật khẩu mới!"
+            },
+            {
+                rule: 'minLength',
+                value: 8,
+                errorMessage: "Mật khẩu phải có ít nhất 8 ký tự!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /[a-z]/,
+                errorMessage: "Mật khẩu phải chứa ký tự thường!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /[A-Z]/,
+                errorMessage: "Mật khẩu phải chứa ký tự hoa!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /\d/,
+                errorMessage: "Mật khẩu phải chứa chữ số!"
+            },
+            {
+                rule: 'customRegexp',
+                value: /[^A-Za-z0-9]/,
+                errorMessage: "Mật khẩu phải chứa ký tự đặc biệt!"
+            },
+        ])
+        .onSuccess((event) => {
+            event.preventDefault();
+            const password = event.target.password.value;
+
+            const fromData = new FormData();
+            fromData.append("password", password);
+
+            fetch(`/${pathAdmin}/profile/change-password`, {
+                method: "PATCH",
+                body: fromData,
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == "error") {
+                        notify.error(data.message);
+                    }
+
+                    if (data.code == "success") {
+                        drawNotify(data.code, data.message);
+                        window.location.reload();
+                    }
+                })
+        })
+}
+// End Profile Change Password Form
+// -------------------------------------------------------------------//

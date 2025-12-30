@@ -9,6 +9,8 @@ router.get('/edit', profileController.editProfile);
 
 router.get('/change-password', profileController.changePassword);
 
-router.patch('/edit',upload.single('avatar'), profileController.updateProfile);
+router.patch('/edit', upload.single('avatar'), profileController.updateProfile);
+
+router.patch('/change-password', upload.none(), profileController.updateChangePassword);
 
 module.exports = router;

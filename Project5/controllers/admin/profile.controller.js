@@ -53,7 +53,7 @@ module.exports.updateProfile = async (req, res) => {
                 email: req.body.email
             },
             "MUONBIETTHONGTINCONLAUNHACUNG",
-            {
+            { 
                 expiresIn: '1d'
             }
         );
@@ -78,4 +78,23 @@ module.exports.updateProfile = async (req, res) => {
             message: "An error occurred while updating the account admin"
         });
     }
+}
+
+// Change password
+module.exports.updateChangePassword = async (req, res) => {
+    const id = req.account.id;
+
+    // bycrypt password
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+
+    req.body.updatedBy = req.account.id;    
+    const result = await AccountAdmin.updateOne({
+        _id: id,
+        deleted: false
+    }, req.body);
+
+    res.json({
+        code: "success",
+        message: "Password changed successfully"
+    });
 }
