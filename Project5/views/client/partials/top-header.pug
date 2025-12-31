@@ -1,13 +1,14 @@
 header.top-header
   .container
     .inner-wrap
+      if(settingWebsiteInfo.phone)
       .inner-item
         p
           i.fa-solid.fa-phone
-          | 090.776.2233
+          | #{settingWebsiteInfo.phone}
         p
           i.fa-solid.fa-inbox
-          | contact@28travel.com
+          | #{settingWebsiteInfo.email}
         p
           i.fa-solid.fa-location-dot
-          | 29B Kellway st, Maribyrnong ,Vic 3032
+          | #{settingWebsiteInfo.address}

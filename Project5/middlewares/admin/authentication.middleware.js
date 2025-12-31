@@ -43,3 +43,44 @@ module.exports.verifyToken = async (req, res, next) => {
         return res.redirect(`/${pathAdmin}/account/login`);
     }
 }
+
+// module.exports.verifyToken = async (req, res, next) => {
+//   try {
+//     const token = req.cookies.token;
+//     if (!token) {
+//       return res.redirect(`/${pathAdmin}/account/login`);
+//     }
+//     const decoded = jwt.verify(token, "MUONBIETTHONGTINCONLAUNHACUNG");
+//     const { id } = decoded;
+
+//     // Find by id only, check active status
+//     const existingAccount = await AccountAdmin.findOne({
+//       _id: id,
+//       status: "active"
+//     });
+
+//     if (!existingAccount) {
+//       res.clearCookie('token');
+//       return res.redirect(`/${pathAdmin}/account/login`);
+//     }
+
+//     // (Optional) attach roleName as before
+//     if (existingAccount.role) {
+//       const role = await Role.findOne({
+//         _id: existingAccount.role,
+//         deleted: false
+//       });
+//       if (role) {
+//         existingAccount.roleName = role.name;
+//       }
+//     }
+
+//     req.account = existingAccount;
+//     res.locals.account = existingAccount;
+//     next();
+//   } catch (err) {
+//     console.error('verifyToken error:', err && err.message);
+//     res.clearCookie('token');
+//     return res.redirect(`/${pathAdmin}/account/login`);
+//   }
+// }

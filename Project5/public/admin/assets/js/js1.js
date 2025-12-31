@@ -1108,7 +1108,7 @@ if (settingRoleEditForm) {
             },
         ])
         .onSuccess((event) => {
-            const id = event.target.id.value;
+            const id = event.target.querySelector('input[name="id"]').value;
             const name = event.target.name.value;
             const description = event.target.description.value;
             const permissions = [];

@@ -216,6 +216,63 @@ module.exports.accountAdminEdit = async (req, res) => {
 }
 
 
+// module.exports.accountAdminEditPatch = async (req, res) => {
+//     try {
+//         const id = req.params.id;
+
+//         const accountAdminDetail = await AccountAdmin.findOne({
+//             _id: id,
+//             deleted: false
+//         });
+
+//         if (!accountAdminDetail) {
+//             res.json({
+//                 code: "error",
+//                 message: "Account admin not found"
+//             })
+//             return;
+//         }
+
+//         const existEmail = await AccountAdmin.findOne({
+//             _id: { $ne: id }, //not equal id 
+//             email: req.body.email
+//         })
+
+//         if (existEmail) {
+//             res.json({
+//                 code: "error",
+//                 message: "Email already in use"
+//             });
+//             return;
+//         }
+
+//         if (req.file) {
+//             req.body.avatar = req.file.path;
+//         } else {
+//             req.body.avatar = "";
+//         }
+
+//         req.body.updatedBy = req.account.id;
+
+//         await AccountAdmin.updateOne({
+//             _id: id,
+//             deleted: false
+//         }, req.body);
+
+//         res.json({
+//             code: "success",
+//             message: "Account admin updated successfully"
+//         });
+
+//     } catch (error) {
+//         res.json({
+//             code: "error",
+//             message: "An error occurred while updating the account admin"
+//         });
+//     }
+// }
+
+
 module.exports.accountAdminEditPatch = async (req, res) => {
     try {
         const id = req.params.id;
@@ -226,30 +283,45 @@ module.exports.accountAdminEditPatch = async (req, res) => {
         });
 
         if (!accountAdminDetail) {
-            res.json({
+            return res.json({
                 code: "error",
                 message: "Account admin not found"
-            })
-            return;
+            });
+        }
+
+        // Không cho tự hạ status / đổi role của chính mình
+        if (String(req.account._id) === String(id)) {
+            if (req.body.status && req.body.status !== 'active') {
+                return res.json({
+                    code: "error",
+                    message: "Bạn không thể tự chuyển trạng thái tài khoản của chính mình."
+                });
+            }
+
+            if (req.body.role && String(req.body.role) !== String(accountAdminDetail.role)) {
+                return res.json({
+                    code: "error",
+                    message: "Bạn không thể tự thay đổi nhóm quyền của chính mình."
+                });
+            }
         }
 
         const existEmail = await AccountAdmin.findOne({
-            _id: { $ne: id }, //not equal id 
+            _id: { $ne: id },
             email: req.body.email
-        })
-        
+        });
+
         if (existEmail) {
-            res.json({
+            return res.json({
                 code: "error",
                 message: "Email already in use"
             });
-            return;
         }
 
         if (req.file) {
             req.body.avatar = req.file.path;
         } else {
-            req.body.avatar = "";
+            delete req.body.avatar; // tránh xoá avatar cũ
         }
 
         req.body.updatedBy = req.account.id;
