@@ -203,11 +203,9 @@ block main
         )
           .swiper.swiperSection2
             .swiper-wrapper
-              each item in tourListSection2 
+              each i in tourListSection2 
                 .swiper-slide
-                  +product-item(item)
-            //
-              (HTML comment giữ nguyên như bạn có nếu cần)
+                  +product-item(i)
 
   .section-3
     .container
@@ -254,9 +252,17 @@ block main
 
   .section-4
     .container
-      h2.box-title Tour Trong Nuoc
-      .inner-wrap
-        //- +product-item()
+      h2.box-title(
+        data-aos-duration="800" 
+        data-aos="fade-up"
+      ) Tour Trong Nuoc
+      .inner-wrap(
+        data-aos-duration="800" 
+        data-aos="fade-up" 
+        data-aos-delay="200"
+      )
+      each i in tourListSection4 
+         +product-item(i)
       .inner-button
         a.xemtatca-button(href="#") Xem Tat Ca
 
