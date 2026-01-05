@@ -186,7 +186,13 @@ a {
     .header .inner-navigation>ul {
         gap: 25px;
     }
+}   
+
+/* Hiện submenu khi hover ở desktop */
+.header .inner-navigation > ul > li:hover .inner-sub {
+    display: block;
 }
+
 
 @media(max-width: 991.98px) {
     .header .inner-navigation {

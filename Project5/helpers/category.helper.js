@@ -14,6 +14,7 @@ const buildCategoryTree = (categories, parentId = "") => {
         _id: item._id,        // ensure _id exists for views/mixins expecting it
         id: item._id,         // keep id for any code that expects 'id'
         name: item.name,
+        slug: item.slug,
         children: children
       });
     }
