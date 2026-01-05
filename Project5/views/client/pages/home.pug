@@ -196,16 +196,16 @@ block main
           .inner-discount-price
             | 990.000
             span AUD
-        .inner-list
+        .inner-list(
+          data-aos-duration="800" 
+          data-aos="fade-up"
+          data-aos-delay="800"
+        )
           .swiper.swiperSection2
             .swiper-wrapper
-              .swiper-slide
-                +product-item()
-              .swiper-slide
-                +product-item()
-              .swiper-slide
-                +product-item()
-              .swiper-slide
+              each item in tourListSection2 
+                .swiper-slide
+                  +product-item(item)
             //
               (HTML comment giữ nguyên như bạn có nếu cần)
 
@@ -256,7 +256,7 @@ block main
     .container
       h2.box-title Tour Trong Nuoc
       .inner-wrap
-        +product-item()
+        //- +product-item()
       .inner-button
         a.xemtatca-button(href="#") Xem Tat Ca
 
@@ -274,7 +274,7 @@ block main
     .container
       h2.box-title Tour Nước Ngoài
       .inner-wrap
-          +product-item()
+          //- +product-item()
       .inner-button
         a.xemtatca-button(href="#") Xem Tat Ca
   // end Section-6
