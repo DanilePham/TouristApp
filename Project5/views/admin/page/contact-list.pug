@@ -47,15 +47,17 @@ block main
             th.text-left Ngày tạo
             th.text-left Hành động
         tbody 
-          tr 
-            td.text-left
-              +checkbox-30("", "")
-            td.text-left levana@gmail.com
-            td.text-left 16:40 - 12/12/2024
-            td.text-left
-              .box-actions 
-                a(href="#" class="inner-remove")
-                  <i class="fa-solid fa-trash-can"></i>
+          each i in contactList
+            tr
+              td.text-left
+                +checkbox-30("check-all", "check-all")
+              td.text-left 
+                | #{i.email}
+              td.text-left #{i.createdAtFormat}
+              td.text-left
+                .box-actions 
+                  a(href="#" class="inner-remove")
+                    <i class="fa-solid fa-trash-can"></i>
   //- End Section 6
 
   //- Section 7

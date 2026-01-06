@@ -288,7 +288,26 @@ if (emailForm) {
         ])
         .onSuccess((event) => {
             const email = event.target.email.value;
-            console.log(email);
+            const datafinal = {
+                email: email
+            }
+            fetch(`/contact/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datafinal),
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code === "exist") {
+                        notify.error(data.message);
+                    }
+                    else if (data.code === "success") {
+                        notify.success(data.message);
+                        event.target.email.value="";
+                    }
+                })
         });
 
 }
@@ -348,15 +367,15 @@ if (customerDetailForm) {
                 rule: 'required',
                 errorMessage: 'Vui lòng nhập số điện thoại',
             }
-            , 
+            ,
             {
                 rule: 'number',
                 errorMessage: 'Số điện thoại chỉ được chứa ký tự số',
             }
             ,
             {
-                rule:'customRegexp',
-                value:/^[0-9]+$/,
+                rule: 'customRegexp',
+                value: /^[0-9]+$/,
                 errorMessage: 'Số điện thoại không được chứa ký tự chữ cái',
             }
         ])
@@ -374,20 +393,20 @@ if (customerDetailForm) {
             console.log(name, phone, note);
         });
 
-        //Display info-bank
-        const listInput=customerDetailForm.querySelectorAll(`input[name='method']`);
-        const inforbank=customerDetailForm.querySelector(".inner-info-bank");
+    //Display info-bank
+    const listInput = customerDetailForm.querySelectorAll(`input[name='method']`);
+    const inforbank = customerDetailForm.querySelector(".inner-info-bank");
 
-        listInput.forEach((input)=>{
-            input.addEventListener("change",()=>{
-               if(input.value==="money-3"){
+    listInput.forEach((input) => {
+        input.addEventListener("change", () => {
+            if (input.value === "money-3") {
                 inforbank.classList.add("active");
-               }
-               else{
+            }
+            else {
                 inforbank.classList.remove("active");
-               }
-            })
+            }
         })
+    })
 
 }
 
