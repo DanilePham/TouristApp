@@ -305,7 +305,7 @@ if (emailForm) {
                     }
                     else if (data.code === "success") {
                         notify.success(data.message);
-                        event.target.email.value="";
+                        event.target.email.value = "";
                     }
                 })
         });
@@ -412,3 +412,33 @@ if (customerDetailForm) {
 
 //Display info-bank
 
+//box filter
+const boxfilterTourList = document.querySelector(".box-filter");
+if (boxfilterTourList) {
+    const url = new URL(`${window.location.origin}/search`)
+
+    const buttonApply = boxfilterTourList.querySelector(".inner-button");
+
+    buttonApply.addEventListener("click", () => {
+        const filterList = [
+            "fromCity",
+            "toCity",
+            "startDate",
+            "adult",
+            "child",
+            "baby",
+            "priceRange"
+        ]
+
+        filterList.forEach((filter) => {
+            const value = boxfilterTourList.querySelector(`[name="${filter}"]`).value;
+            if (value) {
+                url.searchParams.append(filter, value);
+            }
+            else {
+                url.searchParams.delete(filter);
+            }
+        });
+        window.location.href = url.href;
+    })
+}

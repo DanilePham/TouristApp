@@ -4,11 +4,14 @@ const homeRouter = require('./home.router');
 const cartRouter = require('./cart.router');
 const settingInfo=require('../../middlewares/client/setting.middleware');
 const categoryInfo=require('../../middlewares/client/category.middleware');
+const CityMiddleware=require('../../middlewares/client/city.middleware');
 const contactRouter = require('./contact.router');
 const categoryRouter = require('./category.router');
 
+
 router.use(settingInfo.websiteInfo);
 router.use(categoryInfo.list);
+router.use(CityMiddleware.list);
 
 router.use('/tours', tourRouter);
 router.use('/', homeRouter);
