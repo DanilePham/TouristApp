@@ -13,7 +13,7 @@ const schema=new mongoose.Schema({
     createdBy:String,
     updatedBy:String,
     slug:String,
-    slugabc:{
+    slug:{
         type:String, slug:"name", unique:true
     },
     deleted:{ type:Boolean, default:false },

@@ -3,7 +3,7 @@ include ../mixins/breadcrumb.pug
 include ../mixins/product-item.pug
 
 block main
-  +breadcrumb()
+  +breadcrumb(categoryDetail)
 
   .section-9
     .container
@@ -92,8 +92,8 @@ block main
               i.fa-solid.fa-filter
 
           .inner-list-tour
-            +product-item()
-            +product-item()
+            //- +product-item()
+            //- +product-item()
             
           .box-pagination
             .inner-list-button

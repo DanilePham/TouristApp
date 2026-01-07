@@ -9,5 +9,7 @@ module.exports.list=async(req,res,next)=>{
 
     const categoryTree= buildCategoryTree(categories);
     res.locals.categories=categoryTree;
+    console.log("Category list đưa ra view:", res.locals.categories);
+
     next();
 }

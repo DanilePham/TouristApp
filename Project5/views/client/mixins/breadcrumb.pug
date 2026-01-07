@@ -1,15 +1,15 @@
-mixin breadcrumb()
+mixin breadcrumb(detail)
     .breadcrumb
         .inner-image
             img(
-            alt="" 
-            src="/client/asset/images/Rectangle 34.png"
+            alt=detail.name
+            src=detail.avatar
             )
         .inner-content
             .container
                 .inner-wrap
-                    h1.inner-title Tour Nuoc Ngoai
+                    h1.inner-title #{detail.name}
                         nav.inner-links
                             a(href="#") Trang Chu
                                 i.fa-solid.fa-angle-right
-                                    a(href="#") Tour Nuoc Ngoai
+                                    a(href=`/category/${detail.slug}`) #{detail.name}
