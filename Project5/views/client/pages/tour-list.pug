@@ -65,9 +65,9 @@ block main
 
         .inner-right
           .inner-info1
-            h2.inner-title Tour Nuoc Ngoai
+            h2.inner-title #{ categoryDetail.name }
             .inner-des
-              | Du lịch Châu Á: là châu lục lớn và đông dân nhất...
+              | !{ categoryDetail.description }
 
           .inner-info2
             .inner-sort
@@ -92,9 +92,11 @@ block main
               i.fa-solid.fa-filter
 
           .inner-list-tour
-            //- +product-item()
-            //- +product-item()
-            
+            if(tourList.length>0)
+              each item in tourList
+                +product-item(item)   
+            else
+              p Khong co tour nao trong danh muc nay.
           .box-pagination
             .inner-list-button
               button
