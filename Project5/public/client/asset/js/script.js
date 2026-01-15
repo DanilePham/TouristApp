@@ -442,3 +442,61 @@ if (boxfilterTourList) {
         window.location.href = url.href;
     })
 }
+//end box filter
+
+//form-search
+const formSearch=document.querySelector("[form-search]") //find elements have the attribute form-search
+if(formSearch){ 
+    const url = new URL(`${window.location.origin}/search`) //create a URL object with base URL
+    formSearch.addEventListener("submit",(event)=>{
+        event.preventDefault();
+
+        //Location To
+        const location=formSearch.locationToSth.value;
+
+        if(location){
+            url.searchParams.set("locationToSth", location); //http://localhost:3000/search?locationTo=Japan if you input Japan
+        }else{
+            url.searchParams.delete("locationToSth")
+        }
+
+        //Number of customers
+        const adultNumber=formSearch.querySelector("[stock-adult]").innerHTML.trim();
+        if(adultNumber){
+            url.searchParams.set("stockAdult",adultNumber);
+        }
+        else{
+            url.searchParams.delete("stockAdult");
+        }
+
+        const childNumber=formSearch.querySelector("[stock-children]").innerHTML.trim();
+        if(childNumber){
+            url.searchParams.set("stockChildren",childNumber);
+        }
+        else{
+            url.searchParams.delete("stockChildren");
+        }
+        
+        const babyNumber=formSearch.querySelector("[stock-baby]").innerHTML.trim(); 
+        if(babyNumber){
+            url.searchParams.set("stockBaby",babyNumber);
+        }
+        else{
+            url.searchParams.delete("stockBaby");
+        }
+
+        //departureDay
+        const departureDate = formSearch.departureDate.value;
+        if(departureDate){
+            url.searchParams.set("departureDate",departureDate);
+        }else{
+            url.searchParams.delete("departureDate");
+        }
+
+        //Redirect to the constructed URL
+        window.location.href=url.href;
+
+    })
+}
+
+//end form-search

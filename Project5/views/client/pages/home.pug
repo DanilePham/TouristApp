@@ -23,16 +23,20 @@ block main
         form.inner-form(
           data-aos-duration="800" 
           data-aos="fade-up"
+          action=""
+          form-search
         )
           .inner-box.inner-address
             .inner-input-gr
               img.inner-icon(
                 alt="" 
                 src="/client/asset/images/Group.png"
+               
               )
               input.inner-input(
                 placeholder="Ban Muon Di Dau?" 
                 type="text"
+                name="locationToSth"
               )
               i.fa-solid.fa-sort-down.inner-down
             .inner-suggest
@@ -137,19 +141,19 @@ block main
                 .inner-label Nguoi Lon
                 .inner-count
                   span.inner-decrease -
-                  span.inner-number 1
+                  span.inner-number(stock-adult) 1
                   span.inner-increase +
               .inner-item
                 .inner-label Tre Em
                 .inner-count
                   span.inner-decrease -
-                  span.inner-number 1
+                  span.inner-number(stock-children) 1
                   span.inner-increase +
               .inner-item
                 .inner-label Em be
                 .inner-count
                   span.inner-decrease -
-                  span.inner-number 1
+                  span.inner-number(stock-baby) 1
                   span.inner-increase +
           .inner-box.inner-calendar
             .inner-input-gr
@@ -159,7 +163,8 @@ block main
               )
               input.inner-input(
                 placeholder="Lich Khoi Hanh" 
-                type="text"
+                type="date"
+                name="departureDate"
               )
               i.fa-solid.fa-sort-down.inner-down
           button.inner-button
